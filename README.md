@@ -67,7 +67,7 @@ elmo-hikes/
 
 ## Contributors
 - Ivan Somera - BCIT CST Student who likes going to the gym occasionally and watching youtube videos.
-- Ghazi Abbas - BCIT CST Student, who likes to learn new things like in project classes, and playing games.
+- Ghazi Abbas - BCIT CST Student, who enjoys learning new things and playing games
 
 ---
 
