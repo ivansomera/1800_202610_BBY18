@@ -66,8 +66,8 @@ elmo-hikes/
 
 
 ## Contributors
-- Ivan Somera - BCIT CST Student who likes going to the gym occasionally and watching youtube videos.
-- Ghazi Abbas - BCIT CST Student, who enjoys learning new things and playing games
+- Ivan Somera - BCIT Student who enjoys watching anime and occasionally goes to the gym.
+- Zyllian James Franz Saab - BCIT Student who has a wide variety of geeky hobbies from tech to warhammer who may or may not living under a rock when it comes to mainstream things. Fun fact: Has not finished a singular book for 2 years and is still on page 130+
 
 ---
 
