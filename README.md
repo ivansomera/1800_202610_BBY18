@@ -66,8 +66,7 @@ elmo-hikes/
 
 
 ## Contributors
-- Ivan Somera - BCIT CST Student who likes going to the gym occasionally and watching youtube videos.
-- **Teammate Name** - BCIT CST Student, Frontend enthusiast with a knack for creative design. Fun fact: Has a collection of over 50 houseplants.
+- Zyllian James Franz Saab - BCIT Student who has a wide variety of geeky hobbies from tech to warhammer who may or may not living under a rock when it comes to mainstream things. Fun fact: Has not finished a singular book for 2 years and is still on page 130+
 
 ---
 
