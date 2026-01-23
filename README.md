@@ -66,7 +66,7 @@ elmo-hikes/
 
 
 ## Contributors
-- Harman Kaur - BCIT Student who enjoys learning new things
+- Harman Kaur - BCIT Student who enjoy spending time on reading books, watching movies.
 
 
 ## Acknowledgments
