@@ -66,11 +66,10 @@ elmo-hikes/
 
 
 ## Contributors
+- Harman Kaur - BCIT Student who enjoy spending time on reading books, watching movies.
 - Zyllian James Franz Saab - BCIT Student who has a wide variety of geeky hobbies from tech to warhammer who may or may not living under a rock when it comes to mainstream things. Fun fact: Has not finished a singular book for 2 years and is still on page 133
 - Ivan Somera - BCIT CST Student who likes going to the gym occasionally and watching youtube videos.
 - Ghazi Abbas - BCIT CST Student who enjoys learning new stuff, and playing games
-
----
 
 
 ## Acknowledgments
