@@ -1,1 +1,46 @@
+* {
+  margin: 0;
+  list-style: none;
+  border: none;
+}
 
+header {
+  background-color: grey;
+  display: flex;
+  justify-content: center;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+
+nav ul {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  padding: 20px 0px;
+}
+
+button {
+  padding: 10px;
+}
+
+.icon-buttons {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+
+  padding: 10px;
+}
+
+.icons {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.button-filters {
+  border-radius: 20px;
+}
