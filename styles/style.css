@@ -1,47 +1,98 @@
-* {
-  margin: 0;
-  list-style: none;
-  border: none;
+/*
+* --------------------------------------------------
+* Custom styles overriding Bootstrap defaults
+* --------------------------------------------------
+
+/* --------------------------------------------------
+* Theme colours (CSS variables)
+* --------------------------------------------------
+*
+* Store as variables for reuse and maintainability. 
+*/
+:root {
+  /* 60% — background */
+  --light-text: #ee6352;
+
+  /* 30% — primary actions and supporting surfaces) */
+  --primary: #efe9f4;
+  --secondary: #08b2e3;
+
+  /* 10% — accent for emphasis and interaction */
+  --accent: #484d6d;
+
+  /* Button border widths */
+  --btn-border-width: 3px;
+  --btn-border-width-hover: 5px;
 }
 
-header {
-  background-color: grey;
-  display: flex;
-  justify-content: center;
+/* --------------------------------------------------
+* Base page styles
+* --------------------------------------------------
+*
+* The dominant (60%) colour establishes a clean canvas for the page.
+*/
+body {
+  background-color: var(--primary);
+  color: var(--accent);
 }
 
-nav {
-  display: flex;
-  align-items: center;
-  gap: 40px;
+/* --------------------------------------------------
+* Bootstrap utility class: .bg-info
+* --------------------------------------------------
+*
+* Overriding .bg-info applies the secondary (30%) colour used in navbar.
+* This small change creates a major visual shift, demonstrating the 20/80 rule.
+*
+* !important is used because Bootstrap utility classes
+* are designed to take priority.
+*/
+.bg-info {
+  background-color: var(--secondary) !important;
 }
 
-nav ul {
-  display: flex;
-  gap: 20px;
-  justify-content: center;
-  padding: 20px 0px;
+/* --------------------------------------------------
+* Navbar (.navbar-light - text colour on light background)
+* --------------------------------------------------
+*
+* If the navbar is using .bg-info, we want the text complement it.
+*/
+.navbar-light .navbar-brand,
+.navbar-light .navbar-nav .nav-link {
+  color: var(--primary);
+  font-weight: 700;
 }
 
-button {
-  padding: 10px;
+/*
+* Accent colour is introduced only on hover and focus on navbar elements,
+* keeping it within the 10% usage range.
+*/
+.navbar-light .navbar-nav .nav-link:hover,
+.navbar-light .navbar-nav .nav-link:focus {
+  color: var(--accent);
 }
 
-.icon-buttons {
-  display: flex;
-  border-radius: 50%;
-  height: 40px;
-  width: 40px;
-  padding: 10px;
+/* --------------------------------------------------
+* Button: .btn-info
+* --------------------------------------------------
+*  
+* Uses secondary (30%) color used in the call-to-action buttons, 
+* with a border to add visual interest without overwhelming the design.
+*/
+.btn-info {
+  color: var(--light-text);
+  background-color: var(--secondary);
+  border-color: var(--primary);
+  border-width: var(--btn-border-width);
 }
 
-.icons {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.button-filters {
-  border-radius: 20px;
-  background-color: grey;
+/*
+* OPTIONAL: Hover/focus for desktop users - progressive enhancement
+* A thicker accent-colored border adds visual feedback without 
+* changing the button's core color scheme.
+*/
+.btn-info:hover,
+.btn-info:focus {
+  background-color: var(--secondary);
+  border-color: var(--accent);
+  border-width: var(--btn-border-width-hover);
 }
