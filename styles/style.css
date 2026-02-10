@@ -28,10 +28,10 @@ button {
 }
 
 .icon-buttons {
+  display: flex;
   border-radius: 50%;
   height: 40px;
   width: 40px;
-
   padding: 10px;
 }
 
@@ -43,4 +43,5 @@ button {
 
 .button-filters {
   border-radius: 20px;
+  background-color: grey;
 }
