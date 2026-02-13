@@ -1,73 +1,77 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <title>My BCIT Project</title>
-    <meta name="comp1800 template" content="My 1800 App" />
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="/styles/style.css" />
-    <!-- Other libraries go here -->
-  </head>
+<head>
+  <title>My BCIT Project</title>
+  <meta name="comp1800 template" content="My 1800 App" />
 
-  <body>
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary">
-      <div class="container-fluid">
-        <a class="navbar-brand" href="#">
-          <img src="./images/logo.png" height="36" />
-          Restoshow</a
-        >
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#"
-                >Restaurants</a
-              >
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Reviews</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Missions</a>
-            </li>
-          </ul>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="/styles/style.css" />
+  <!-- Other libraries go here -->
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="./images/logo.png" height="36" />
+        Restoshow</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Restaurants</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Reviews</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Missions</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Welcome banner -->
+  <div class="jumbotron">
+    <h1 class="display-4">Food and Culture, All in One Place.</h1>
+    <p class="lead">The hub to fulfill all your dining needs both new and familiar!</p>
+    <hr class="my-4">
+    <p>At Restoshow, we do our best to offer and present restaurants recommended by locals.</p>
+  </div>
+
+  <!-- Call to action section -->
+  <br>
+  <div class="d-grid gap-4 col-md-6 d-md-block">
+    <button class="btn btn-primary" type="button">Join us!</button>
+    
+  </div>
+  <br>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-light py-4">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <h5>Restoshow</h5>
+          <p>Your go to place for restaurant reviews and recommendations.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <p>&copy; 2026 Restoshow. All rights reserved.</p>
         </div>
       </div>
-    </nav>
+    </div>
+  </footer>
 
-    <!-- Welcome banner -->
+  <!-- Link to scripts of your own -->
+  <script type="module" src="./src/main.js"></script>
+</body>
 
-    <!-- Call to action section -->
-
-    <!-- Footer -->
-    <footer class="bg-dark text-light py-4">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <h5>Restoshow</h5>
-            <p>Your go to place for restaurant reviews and recommendations.</p>
-          </div>
-          <div class="col-md-6 text-md-end">
-            <p>&copy; 2026 Restoshow. All rights reserved.</p>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <!-- Link to scripts of your own -->
-    <script type="module" src="./src/main.js"></script>
-  </body>
 </html>
