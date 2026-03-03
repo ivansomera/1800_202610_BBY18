@@ -52,10 +52,10 @@ Once the application is running:
 │   ├── authentication.js
 │   ├── firebaseConfig.js
 │   ├── loginSignup.js
-│   assets/
-│   └──images
 ├── styles/
 │   └── style.css
+├── public/
+│   └── images
 ├── index.html
 ├── package.json
 ├── README.md

@@ -16,7 +16,7 @@ class SiteNavbar extends HTMLElement {
             <nav class="navbar navbar-expand-lg navbar-light bg-info">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="/main.html">
-                        <img src="src/assets/logo.png" height="36" alt="logo">
+                        <img src="/images/logo.png" height="36" alt="logo">
                         Restolocal
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
@@ -27,7 +27,7 @@ class SiteNavbar extends HTMLElement {
                         <div class="d-flex align-items-center gap-2 ms-lg-2" id="rightControls">
                             <form class="d-flex align-items-center gap-2 my-2 my-lg-0" id="navSearch" role="search">
                                 <input class="form-control d-none d-sm-block w-auto" type="search" placeholder="Search" aria-label="Search">
-                                <button class="btn btn-outline-light d-none d-sm-flex bg-light justify-content-center rounded-circle search-btn" type="submit"><img src="src/assets/search.svg" alt="Search" height="30"></button>
+                                <button class="btn btn-outline-light d-none d-sm-flex bg-light justify-content-center rounded-circle search-btn" type="submit"><img src="/images/search.svg" alt="Search" height="30"></button>
                             </form>
                             <div id="authControls" class="auth-controls d-flex align-items-center gap-2 my-2 my-lg-0">
                                 <!-- populated by JS -->
