@@ -15,7 +15,7 @@ class SiteNavbar extends HTMLElement {
             <!-- Navbar: single source of truth -->
             <nav class="navbar navbar-expand-lg navbar-light bg-info">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="/">
+                    <a class="navbar-brand" href="/main.html">
                         <img src="src/assets/logo.png" height="36" alt="logo">
                         Restolocal
                     </a>
@@ -23,16 +23,11 @@ class SiteNavbar extends HTMLElement {
                         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav me-auto">
-                            <li class="nav-item">
-                                <a class="nav-link" href="/">Home</a>
-                            </li>
-                        </ul>
+                    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">                        
                         <div class="d-flex align-items-center gap-2 ms-lg-2" id="rightControls">
                             <form class="d-flex align-items-center gap-2 my-2 my-lg-0" id="navSearch" role="search">
                                 <input class="form-control d-none d-sm-block w-auto" type="search" placeholder="Search" aria-label="Search">
-                                <button class="btn btn-outline-light d-none d-sm-inline-block" type="submit">Search</button>
+                                <button class="btn btn-outline-light d-none d-sm-inline-block rounded-circle" type="submit"><img src="src/assets/search.svg" alt="Search" height="25"></button>
                             </form>
                             <div id="authControls" class="auth-controls d-flex align-items-center gap-2 my-2 my-lg-0">
                                 <!-- populated by JS -->
