@@ -14,33 +14,28 @@
   </head>
 
   <body>
-    <!------------------------------>
-    <!-- Your HTML Layout go here -->
-    <!------------------------------>
-
-    <!-- our own navbar goes here -->
     <site-navbar></site-navbar>
 
     <!-- Main content goes here -->
     <div class="container-fluid bg-light text-dark p-5">
-      <div class="container bg-light p-5">
-        <h1 class="display-4">
-          Good morning <span id="name-goes-here">friend </span>
-        </h1>
-        <hr />
-        <p>
-          Quote of the day: A mind needs books like a sword needs a whetstone.
-        </p>
+      <div id="map" style="width: 100%; height: 400px"></div>
+      <div class="card" style="width: 20rem">
+        <div class="card-body">
+          <h5 class="card-title">The Restaurant</h5>
+          <h6 class="card-subtitle mb-2 text-muted">
+            1.0km away | Japanese | $$
+          </h6>
+          <a href="#" class="card-link">Menu</a>
+          <a href="#" class="card-link">Reviews</a>
+          <a href="#" class="card-link">Location</a>
+          <a href="#" class="card-link">Favorite</a>
+        </div>
       </div>
     </div>
 
-    <!-- our own footer goes here -->
     <site-footer></site-footer>
 
-    <!---------------------------------------------->
-    <!-- Your own JavaScript scripts go here      -->
-    <!---------------------------------------------->
-
     <script type="module" src="/src/app.js"></script>
+    <script type="module" src="./src/map.js"></script>
   </body>
 </html>

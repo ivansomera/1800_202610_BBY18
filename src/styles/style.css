@@ -15,10 +15,10 @@
 
   /* 30% — primary actions and supporting surfaces) */
   --primary: #efe9f4;
-  --secondary: #08b2e3;
+  --secondary: #2253a3;
 
   /* 10% — accent for emphasis and interaction */
-  --accent: #484d6d;
+  --accent: #59c9a5;
 
   /* Button border widths */
   --btn-border-width: 3px;
@@ -95,4 +95,15 @@ body {
   background-color: var(--secondary);
   border-color: var(--accent);
   border-width: var(--btn-border-width-hover);
+}
+
+/* --------------------------------------------------
+CUSTOM STYLES
+-------------------------------------------------*/
+.search-btn {
+  width: 46px;
+}
+
+.search-btn:hover {
+  background-color: var(--accent) !important;
 }
