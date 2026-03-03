@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>List</title>
+    <meta name="comp1800 template" content="My 1800 App" />
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Web Components for shared navbar and footer layout -->
+    <script type="module" src="/src/components/site-navbar.js"></script>
+    <script type="module" src="/src/components/site-footer.js"></script>
+</head>
+
+<body>
+    <!------------------------------>
+    <!-- Your HTML Layout go here -->
+    <!------------------------------>
+
+    <!-- our own navbar goes here -->
+    <site-navbar></site-navbar>
+
+    <!-- Main content goes here -->
+    <div class="container-fluid bg-light text-dark">
+        <div class="container bg-light p-5">
+            <h1 class="display-4">
+                <b>
+                    Restaurants
+                </b>
+            </h1>
+            <img src="/images/search.svg" alt="Search" height="30">
+            <hr>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Price</th>
+                        <th scope="col">Rating</th>
+                        <th scope="col">Distance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-warning">
+                        <th scope="row">1</th>
+                        <td>The Restaurant</td>
+                        <td>$$</td>
+                        <td>5 <img src="images\star.png" height="20"></td>
+                        <td>1km</td>
+                    </tr>
+                    <tr class="table-info">
+                        <th scope="row">2</th>
+                        <td>2nd Resto</td>
+                        <td>$</td>
+                        <td>4 <img src="images\star.png" height="20"></td>
+                        <td>14m</td>
+                    </tr>
+                    <tr class="table-warning">
+                        <th scope="row">3</th>
+                        <td>Rest Trois</td>
+                        <td>$$$</td>
+                        <td>3 <img src="images\star.png" height="20"></td>
+                        <td>10m</td>
+                    <tr class="table-info">
+                        <th scope="row">4</th>
+                        <td>Lorem Ipsum</td>
+                        <td>$$</td>
+                        <td><img src="images\star.png" height="20"></td>
+                        <td>m</td>
+                    <tr class="table-warning">
+                        <th scope="row">5</th>
+                        <td>Lorem Ipsum</td>
+                        <td>$$</td>
+                        <td><img src="images\star.png" height="20"></td>
+                        <td>m</td>
+                    <tr class="table-info">
+                        <th scope="row">6</th>
+                        <td>Lorem Ipsum</td>
+                        <td>$$</td>
+                        <td><img src="images\star.png" height="20"></td>
+                        <td>m</td>
+                    <tr class="table-warning">
+                        <th scope="row">7</th>
+                        <td>Lorem Ipsum</td>
+                        <td>$$</td>
+                        <td><img src="images\star.png" height="20"></td>
+                        <td>m</td>
+                    <tr class="table-info">
+                        <th scope="row">8</th>
+                        <td>Lorem Ipsum</td>
+                        <td>$$</td>
+                        <td><img src="images\star.png" height="20"></td>
+                        <td>m</td>
+                    <tr class="table-warning">
+                        <th scope="row">9</th>
+                        <td>Lorem Ipsum</td>
+                        <td>$$</td>
+                        <td><img src="images\star.png" height="20"></td>
+                        <td>m</td>
+                    <tr class="table-info">
+                        <th scope="row">10</th>
+                        <td>Lorem Ipsum</td>
+                        <td>$$</td>
+                        <td><img src="images\star.png" height="20"></td>
+                        <td>m</td>                       
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+
+
+    <!-- our own footer goes here -->
+    <site-footer></site-footer>
+
+    <!---------------------------------------------->
+    <!-- Your own JavaScript scripts go here      -->
+    <!---------------------------------------------->
+
+    <script type="module" src="/src/app.js"></script>
+</body>
+
+</html>
