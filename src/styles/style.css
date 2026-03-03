@@ -15,10 +15,10 @@
 
   /* 30% — primary actions and supporting surfaces) */
   --primary: #efe9f4;
-  --secondary: #2253a3;
+  --secondary: #08b2e3;
 
   /* 10% — accent for emphasis and interaction */
-  --accent: #59c9a5;
+  --accent: #484d6d;
 
   /* Button border widths */
   --btn-border-width: 3px;
@@ -96,14 +96,70 @@ body {
   border-color: var(--accent);
   border-width: var(--btn-border-width-hover);
 }
+/* ==========================================
+   Mission Page Styling
+========================================== */
 
-/* --------------------------------------------------
-CUSTOM STYLES
--------------------------------------------------*/
-.search-btn {
-  width: 46px;
+.mission-card {
+  background-color: #ffffff;
+  border: 2px solid var(--accent);
+  padding: 16px;
+  border-radius: 14px;
+  margin-bottom: 18px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
 }
 
-.search-btn:hover {
-  background-color: var(--accent) !important;
+.mission-card p {
+  margin: 0;
+  font-weight: 600;
+}
+
+.progress {
+  height: 8px;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  margin-top: 8px;
+}
+
+.progress-bar {
+  background-color: var(--secondary);
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+
+/* ==========================================
+   Bottom Navigation
+========================================== */
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  display: flex;
+  justify-content: space-around;
+  padding: 14px 0;
+  border-top: 2px solid var(--accent);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.08);
+  z-index: 1000;
+}
+
+.bottom-nav a {
+  color: var(--accent);
+  font-size: 22px;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.bottom-nav a.active {
+  color: var(--secondary);
+}
+
+.bottom-nav a:hover {
+  transform: scale(1.1);
+}
+
+body {
+  margin-bottom: 80px;
 }
