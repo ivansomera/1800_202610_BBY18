@@ -1,23 +1,19 @@
-# Elmo Hikes
-
+# Restolocal
 
 ## Overview
-Elmo Hikes is a client-side JavaScript web application that helps users discover and explore hiking trails. The app displays a curated list of hike trails, each with details such as name, location, difficulty, and an image. Users can browse the list and mark their favorite trails for easy access later.
 
-Developed for the COMP 1800 course, this project applies User-Centred Design practices and agile project management, and demonstrates integration with Firebase backend services for storing user favorites.
+Restolocal is a client-side JavaScript web application to help visitors coming to the World Cup to show them locally-recommended restaurants by creating a gamified and memorable experience.
 
 ---
-
 
 ## Features
 
-- Browse a list of curated hiking trails with images and details
-- Mark and unmark trails as favorites
-- View a personalized list of favorite hikes
+- Browse a list of curated local restaurants
+- View a leaderboard/missions
+- View a personalized list of favorite restaurants
 - Responsive design for desktop and mobile
 
 ---
-
 
 ## Technologies Used
 
@@ -28,7 +24,6 @@ Developed for the COMP 1800 course, this project applies User-Centred Design pra
 
 ---
 
-
 ## Usage
 
 To run the application locally:
@@ -37,26 +32,30 @@ To run the application locally:
 2.  **Install dependencies** by running `npm install` in the project root directory.
 3.  **Start the development server** by running the command: `npm run dev`.
 4.  Open your browser and visit the local address shown in your terminal (usually `http://localhost:5173` or similar).
+5.  Update .env file with keys in firebase and maptiler
 
 Once the application is running:
 
-1.  Browse the list of hiking trails displayed on the main page.
+1.  Browse the list of restaurants displayed on the main page.
 2.  Click the heart icon (or similar) to mark a trail as a favorite.
 3.  View your favorite hikes in the favorites section.
 
 ---
 
-
 ## Project Structure
 
 ```
-elmo-hikes/
+1800_202610_BBY18/
 ├── src/
 │   ├── main.js
+│   ├── app.js
+│   ├── authentication.js
+│   ├── firebaseConfig.js
+│   ├── loginSignup.js
+│   assets/
+│   └──images
 ├── styles/
 │   └── style.css
-├── public/
-├── images/
 ├── index.html
 ├── package.json
 ├── README.md
@@ -64,13 +63,12 @@ elmo-hikes/
 
 ---
 
-
 ## Contributors
+
 - Harman Kaur - BCIT Student who enjoy spending time on reading books, watching movies.
 - Zyllian James Franz Saab - BCIT Student who has a wide variety of geeky hobbies from tech to warhammer who may or may not living under a rock when it comes to mainstream things. Fun fact: Has not finished a singular book for 2 years and is still on page 133
 - Ivan Somera - BCIT CST Student who likes going to the gym occasionally and watching youtube videos.
 - Ghazi Abbas - BCIT CST Student who enjoys learning new stuff, and playing games
-
 
 ## Acknowledgments
 
@@ -80,8 +78,8 @@ elmo-hikes/
 
 ---
 
-
 ## Limitations and Future Work
+
 ### Limitations
 
 - Limited trail details (e.g., no live trail conditions).
@@ -94,7 +92,6 @@ elmo-hikes/
 - Create a dark mode for better usability in low-light conditions.
 
 ---
-
 
 ## License
 

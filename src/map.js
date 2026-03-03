@@ -19,6 +19,7 @@ function showMap() {
     style: `https://api.maptiler.com/maps/streets/style.json?key=${import.meta.env.VITE_MAPTILER_KEY}`,
     center: [-123.00163752324765, 49.25324576104826],
     zoom: 10,
+    attributionControl: false,
   });
 
   // Add controls (zoom, rotation, etc.) shown in top-right corner of map
