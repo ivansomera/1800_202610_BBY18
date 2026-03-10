@@ -2,7 +2,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap';
 import './styles/style.css';
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp, doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { auth, db } from "./firebaseConfig.js";
 
 
@@ -79,6 +79,29 @@ async function savePost() {
 
         console.log("1. Post document added!");
         console.log(docRef.id);
+
+        // UPDATE USER POINTS FOR LEADERBOARD
+
+        const userRef = doc(db, "userPoints", user.uid);
+        const userSnap = await getDoc(userRef);
+
+        if (userSnap.exists()) {
+
+            const currentPoints = userSnap.data().points || 0;
+
+            await updateDoc(userRef, {
+                points: currentPoints + 10
+            });
+
+        } else {
+
+            await setDoc(userRef, {
+                name: user.displayName || "User",
+                points: 10,
+                level: 1
+            });
+
+        }
 
         // Optional: savePostIDforUser(docRef.id);
         // Do you want to keep track if what posts the user has done?
