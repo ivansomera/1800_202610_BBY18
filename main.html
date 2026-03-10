@@ -57,24 +57,81 @@
         <a href="createPost.html" class="btn btn-primary"> Create Post </a>
       </div>
 
+      <!-- PLACEHOLDER, this will be shown when clicked on map -->
       <div id="map" style="width: 100%; height: 400px"></div>
+
+      <div class="container-fluid bg-light text-dark p-5">
+        <div id="gems-go-here" class="d-flex"></div>
+      </div>
+
       <div class="card" style="width: 20rem">
-        <div class="card-body">
-          <h5 class="card-title">The Restaurant</h5>
-          <h6 class="card-subtitle mb-2 text-muted">
-            1.0km away | Japanese | $$
-          </h6>
-          <a href="#" class="card-link">Menu</a>
-          <a href="#" class="card-link">Reviews</a>
-          <a href="#" class="card-link">Location</a>
-          <a href="#" class="card-link">Favorite</a>
-        </div>
+        <template id="restaurantCardTemplate">
+          <div class="card-body">
+            <h5 class="card-title"></h5>
+            <ul class="d-flex gap-3 p-0">
+              <li class="card-location"></li>
+              <li class="card-cuisine"></li>
+              <li class="card-cost"></li>
+            </ul>
+            <ul class="d-flex p-0 gap-3 list-unstyled">
+              <li>
+                <a
+                  href="#"
+                  class="d-flex flex-column card-link text-decoration-none align-items-center"
+                  ><img
+                    src="public/images/menu.svg"
+                    alt="Menu icon"
+                    width="24"
+                    height="24"
+                  />Menu</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="d-flex flex-column card-link text-decoration-none align-items-center"
+                  ><img
+                    src="public/images/reviews.svg"
+                    alt="Reviews icon"
+                    width="24"
+                    height="24"
+                  />Reviews</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="d-flex flex-column card-link text-decoration-none align-items-center"
+                  ><img
+                    src="public/images/map.svg"
+                    alt="Map icon"
+                    width="24"
+                    height="24"
+                  />Location</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="d-flex flex-column card-link text-decoration-none align-items-center"
+                  ><img
+                    src="public/images/favorite.svg"
+                    alt="Heart icon"
+                    width="24"
+                    height="24"
+                  />Favorite</a
+                >
+              </li>
+            </ul>
+          </div>
+        </template>
       </div>
     </div>
 
     <site-footer></site-footer>
 
+    <script type="module" src="/src/map.js"></script>
     <script type="module" src="/src/app.js"></script>
-    <script type="module" src="./src/map.js"></script>
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>
