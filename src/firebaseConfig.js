@@ -36,7 +36,6 @@ const firebaseConfig = {
 // This sets up the Firebase connection for your web app.
 // ---------------------------------------------------------
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 
 // ---------------------------------------------------------
 // Create and export the Firebase Authentication service.
@@ -44,4 +43,4 @@ const db = getFirestore(app);
 // or signout operations (that's why we export it).
 // ---------------------------------------------------------
 export const auth = getAuth(app);
-export { db };
+export const db = getFirestore(app);

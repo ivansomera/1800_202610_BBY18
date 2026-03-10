@@ -31,9 +31,17 @@
 *
 * The dominant (60%) colour establishes a clean canvas for the page.
 */
+* {
+  list-style: none !important;
+}
+
 body {
   background-color: var(--primary);
   color: var(--accent);
+}
+
+a {
+  color: black;
 }
 
 /* --------------------------------------------------

@@ -2,6 +2,59 @@ import * as maplibregl from "maplibre-gl";
 // ------------------------------------------------------------
 // Global variable to store user location, hike data - good practice
 // ------------------------------------------------------------
+
+// Placeholder -----
+
+const gems = {
+  type: "HiddenGems",
+  features: [
+    {
+      type: "Gem",
+      properties: {
+        restaurantName: "Haidilao",
+        iconSize: [40, 40],
+      },
+      geometry: {
+        type: "Point",
+        coordinates: [-123.0010676417778, 49.26759839133271],
+      },
+    },
+    {
+      type: "Gem",
+      properties: {
+        restaurantName: "Chipotle",
+        iconSize: [40, 40],
+      },
+      geometry: {
+        type: "Point",
+        coordinates: [-123.00199116377546, 49.22614960451131],
+      },
+    },
+    {
+      type: "Gem",
+      properties: {
+        restaurantName: "Breka",
+        iconSize: [40, 40],
+      },
+      geometry: {
+        type: "Point",
+        coordinates: [-123.1268370178176, 49.279767512179944],
+      },
+    },
+    {
+      type: "Gem",
+      properties: {
+        restaurantName: "Green Leaf Sushi",
+        iconSize: [40, 40],
+      },
+      geometry: {
+        type: "Point",
+        coordinates: [-122.89775423069463, 49.25341712894057],
+      },
+    },
+  ],
+};
+
 const appState = {
   hikes: [],
   userLngLat: null,
@@ -29,87 +82,31 @@ function showMap() {
   // We wait for the "load" event to ensure the map is fully initialized before we try to add sources/layers.
   map.once("load", async () => {
     // Choose either the built-in geolocate control or the manual pin method
-    addGeolocationControl(map);
-    await addUserPin(map);
+
     console.log("map loaded, placed user pin!");
+    gems.features.forEach((marker) => {
+      // create a DOM element for the marker
+      const el = document.createElement("div");
+      el.className = "marker";
+      el.style.backgroundImage = `url('/images/diamond.png')`;
+      el.style.width = `${marker.properties.iconSize[0]}px`;
+      el.style.height = `${marker.properties.iconSize[1]}px`;
+      el.style.backgroundRepeat = "no-repeat";
+      el.style.backgroundSize = "contain";
+      el.addEventListener("click", () => {
+        window.alert(marker.properties.restaurantName);
+      });
+
+      // add marker to map
+      new maplibregl.Marker({ element: el })
+        .setLngLat(marker.geometry.coordinates)
+        .addTo(map);
+    });
   });
 
   function addControls(map) {
     // Zoom and rotation
     map.addControl(new maplibregl.NavigationControl(), "top-right");
-  }
-
-  function addGeolocationControl(map) {
-    const geolocate = new maplibregl.GeolocateControl({
-      positionOptions: { enableHighAccuracy: true },
-      trackUserLocation: true,
-      showUserHeading: true,
-    });
-    map.addControl(geolocate, "top-right");
-
-    // Optional: trigger a locate once the control is added
-    geolocate.on("trackuserlocationstart", () => {
-      // You can react to tracking start here if needed
-    });
-  }
-  // ------------------------------------------------------------
-  // This function manually gets the user's geolocation and adds a custom pin to the map.
-  // It also adds a click event to show a popup with "You are here".
-  // -------------------------------------------------------------
-  async function addUserPin(map) {
-    if (!("geolocation" in navigator)) {
-      console.warn("Geolocation is not available in this browser");
-      return;
-    }
-
-    // Use the safe geolocation function that returns a Promise
-    navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        // Store user location in global variable for later use (e.g., zooming to all points)
-        appState.userLngLat = [pos.coords.longitude, pos.coords.latitude];
-
-        // Add a GeoJSON source
-        map.addSource("userLngLat", {
-          type: "geojson",
-          data: {
-            type: "FeatureCollection",
-            features: [
-              {
-                type: "Feature",
-                geometry: { type: "Point", coordinates: appState.userLngLat },
-                properties: { description: "Your location" },
-              },
-            ],
-          },
-        });
-
-        // Add a simple circle layer
-        map.addLayer({
-          id: "userLngLat",
-          type: "circle",
-          source: "userLngLat",
-          paint: {
-            "circle-color": "#1E90FF",
-            "circle-radius": 6,
-            "circle-stroke-width": 2,
-            "circle-stroke-color": "#ffffff",
-          },
-        });
-
-        // Optional: add a tooltip on hover or click
-        map.on("click", "userLngLat", (e) => {
-          const [lng, lat] = e.features[0].geometry.coordinates;
-          new maplibregl.Popup()
-            .setLngLat([lng, lat])
-            .setHTML("You are here")
-            .addTo(map);
-        });
-      },
-      (err) => {
-        console.error("Geolocation error", err);
-      },
-      { enableHighAccuracy: true, timeout: 10000, maximumAge: 0 },
-    );
   }
 }
 
