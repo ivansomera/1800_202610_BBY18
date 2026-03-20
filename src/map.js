@@ -53,16 +53,8 @@ async function showGems(map) {
     el.style.height = "30px";
     el.style.backgroundSize = "contain";
 
-    // add marker to map
-    new maplibregl.Marker({ element: el })
-      .setLngLat([doc.lng, doc.lat])
-      .addTo(map);
-
-    // add a popup
-    map.on("click", () => {
-      let description = "";
-
-      description += ` 
+    // create popup
+    const popup = new maplibregl.Popup({ offset: 25 }).setHTML(`
           <div class="card-body">
             <h5 class="card-title">${doc.name}</h5>
             <ul class="d-flex gap-3 p-0">
@@ -121,13 +113,13 @@ async function showGems(map) {
               </li>
             </ul>
           </div>
-        `;
+        `);
 
-      new maplibregl.Popup()
-        .setLngLat([doc.lng, doc.lat])
-        .setHTML(description)
-        .addTo(map);
-    });
+    // add marker to map w/ popup
+    new maplibregl.Marker({ element: el })
+      .setLngLat([doc.lng, doc.lat])
+      .setPopup(popup)
+      .addTo(map);
   });
 }
 
