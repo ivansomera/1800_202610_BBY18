@@ -54,7 +54,8 @@ async function showGems(map) {
     el.style.backgroundSize = "contain";
 
     // create popup
-    const popup = new maplibregl.Popup({ offset: 25 }).setHTML(`
+    const popup = new maplibregl.Popup({ offset: 25, maxWidth: "428px" })
+      .setHTML(`
           <div class="card-body">
             <h5 class="card-title">${doc.name}</h5>
             <ul class="d-flex gap-3 p-0">
