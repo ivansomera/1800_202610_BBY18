@@ -86,5 +86,5 @@ function displayCardsDynamically() {
 }
 
 // Call the seeding function when the main.html page loads.
-seedGems();
-displayCardsDynamically();
+// seedGems();
+// displayCardsDynamically();
