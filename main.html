@@ -7,8 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Web Components for shared navbar and footer layout -->
-       <link rel="stylesheet" href="/src/styles/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="/src/styles/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+    />
     <script type="module" src="/src/components/site-navbar.js"></script>
     <script type="module" src="/src/components/site-footer.js"></script>
     <link
@@ -31,12 +34,8 @@
     <site-navbar></site-navbar>
 
     <div
-      class="filter-bar container-fluid d-flex align-items-center justify-content-between mt-3 mb-3"
+      class="filter-bar container-fluid d-flex justify-content-center mt-3 mb-3"
     >
-      <button class="btn btn-light rounded-circle">
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </button>
-
       <div class="d-flex gap-3">
         <button class="btn btn-outline-secondary rounded-pill px-4">
           Pizza
@@ -48,10 +47,6 @@
           Sushi
         </button>
       </div>
-
-      <button class="btn btn-dark rounded-circle">
-        <i class="fa-solid fa-user"></i>
-      </button>
     </div>
     <!-- Main content goes here -->
     <div class="container-fluid bg-light text-dark p-5">
@@ -61,11 +56,13 @@
 
       <!-- PLACEHOLDER, this will be shown when clicked on map -->
       <div id="map" style="width: 100%; height: 400px"></div>
-
+      <nav id="filter-group" class="filter-group"></nav>
+      <div id="test"></div>
       <div class="container-fluid bg-light text-dark p-5">
         <div id="gems-go-here" class="d-flex"></div>
       </div>
 
+      <!-- Card popup template -->
       <div class="card" style="width: 20rem">
         <template id="restaurantCardTemplate">
           <div class="card-body">
