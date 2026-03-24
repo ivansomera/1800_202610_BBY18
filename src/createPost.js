@@ -33,9 +33,36 @@ function uploadImage() {
     }
 }
 
+let selectedRating = 0;
+
+function setupStarRating() {
+    const stars = document.querySelectorAll(".star");
+
+    stars.forEach((star, index) => {
+        star.addEventListener("click", () => {
+
+            selectedRating = index + 1;
+
+            // reset all stars
+            stars.forEach(s => {
+                s.classList.remove("bi-star-fill");
+                s.classList.add("bi-star");
+            });
+
+            // fill selected stars
+            for (let i = 0; i <= index; i++) {
+                stars[i].classList.remove("bi-star");
+                stars[i].classList.add("bi-star-fill");
+            }
+
+            console.log("Selected rating:", selectedRating);
+        });
+    });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     uploadImage();
-
+    setupStarRating();
     const postButton = document.getElementById("postButton");
     postButton.addEventListener("click", savePost);
 });
@@ -53,7 +80,10 @@ async function savePost() {
         return;
     }
 
+    const name = document.getElementById("restaurantName").value;
     const desc = document.getElementById("description").value;
+    const rating = selectedRating;
+    const cuisine = document.getElementById("cuisine").value;
 
     // 1️⃣ Get Base64 image from Local Storage
     const inputImage = localStorage.getItem("inputImage") || "";
@@ -68,7 +98,10 @@ async function savePost() {
         // 3️⃣ Save post to Firestore with geolocation
         const docRef = await addDoc(collection(db, "posts"), {
             owner: user.uid,
+            restaurantName: name,
             description: desc,
+            rating: rating,
+            cuisine: cuisine,
             image: inputImage,
             last_updated: serverTimestamp(),
             location: {
@@ -77,8 +110,13 @@ async function savePost() {
             }
         });
 
+
         console.log("1. Post document added!");
         console.log(docRef.id);
+
+        console.log("NAME:", name);
+        console.log("RATING ELEMENT:", document.getElementById("rating"));
+        console.log("CUISINE ELEMENT:", document.getElementById("cuisine"));
 
         // UPDATE USER POINTS FOR LEADERBOARD
 
@@ -103,8 +141,8 @@ async function savePost() {
 
         }
 
-        // Optional: savePostIDforUser(docRef.id);
-        // Do you want to keep track if what posts the user has done?
+
+
 
     } catch (error) {
         console.error("Error adding post:", error);

@@ -88,3 +88,55 @@ function displayCardsDynamically() {
 // Call the seeding function when the main.html page loads.
 seedGems();
 displayCardsDynamically();
+displayPostsFromFirebase();
+
+
+function displayPostsFromFirebase() {
+
+  const container = document.getElementById("posts-go-here");
+  const postsRef = collection(db, "posts");
+
+  container.innerHTML = ""; // clear before adding
+
+  getDocs(postsRef)
+    .then((querySnapshot) => {
+
+      querySnapshot.forEach((doc) => {
+
+        const post = doc.data();
+
+        // Skip empty posts (important fix)
+        if (!post.restaurantName) return;
+
+        const card = document.createElement("div");
+        card.className = "col-md-4";
+
+        card.innerHTML = `
+          <div class="card p-3 mb-4 shadow-sm">
+
+         <div class="d-flex">
+             <div class="flex-grow-1 pe-2">
+        <h6 class="mb-1">${post.restaurantName}</h6>
+
+        <small>⭐ ${post.rating || "N/A"} | ${post.cuisine || "Unknown"}</small>
+
+        <p class="mb-1 small">${post.description || ""}</p>
+      </div>
+
+            ${post.image
+            ? `<img src="data:image/png;base64,${post.image}" 
+                 style="width: 80px; height: 80px; object-fit: cover; border-radius: 8px;">`
+            : ""
+          }
+
+          </div>
+        `;
+
+        container.appendChild(card);
+      });
+
+    })
+    .catch((error) => {
+      console.error("Error loading posts:", error);
+    });
+}
