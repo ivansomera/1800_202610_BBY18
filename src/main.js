@@ -145,3 +145,12 @@ function displayPostsFromFirebase() {
       console.error("Error loading posts:", error);
     });
 }
+// Handle navbar category button click (active state)
+const navButtons = document.querySelectorAll(".main-nav-btn");
+
+navButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    navButtons.forEach((btn) => btn.classList.remove("active"));
+    button.classList.add("active");
+  });
+});

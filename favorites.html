@@ -41,80 +41,15 @@
                         <th scope="col">Price</th>
                         <th scope="col">Rating</th>
                         <th scope="col">Distance</th>
+                        <th scope="col">Action</th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr class="table-warning">
-                        <th scope="row">1</th>
-                        <td>The Favourite Restaurant</td>
-                        <td>$$</td>
-                        <td>5 <img src="images\star.png" height="20"></td>
-                        <td>1km</td>
-                    </tr>
-                    <tr class="table-info">
-                        <th scope="row">2</th>
-                        <td>2nd Fave Resto</td>
-                        <td>$</td>
-                        <td>4 <img src="images\star.png" height="20"></td>
-                        <td>14m</td>
-                    </tr>
-                    <tr class="table-warning">
-                        <th scope="row">3</th>
-                        <td>Tres Amo</td>
-                        <td>$$$</td>
-                        <td>3 <img src="images\star.png" height="20"></td>
-                        <td>10m</td>
-                    <tr class="table-info">
-                        <th scope="row">4</th>
-                        <td>Fave Lorem Ipsum</td>
-                        <td>$$</td>
-                        <td><img src="images\star.png" height="20"></td>
-                        <td>m</td>
-                    <tr class="table-warning">
-                        <th scope="row">5</th>
-                        <td>Fave Lorem Ipsum</td>
-                        <td>$$</td>
-                        <td><img src="images\star.png" height="20"></td>
-                        <td>m</td>
-                    <tr class="table-info">
-                        <th scope="row">6</th>
-                        <td>Fave Lorem Ipsum</td>
-                        <td>$$</td>
-                        <td><img src="images\star.png" height="20"></td>
-                        <td>m</td>
-                    <tr class="table-warning">
-                        <th scope="row">7</th>
-                        <td>Fave Lorem Ipsum</td>
-                        <td>$$</td>
-                        <td><img src="images\star.png" height="20"></td>
-                        <td>m</td>
-                    <tr class="table-info">
-                        <th scope="row">8</th>
-                        <td>Fave Lorem Ipsum</td>
-                        <td>$$</td>
-                        <td><img src="images\star.png" height="20"></td>
-                        <td>m</td>
-                    <tr class="table-warning">
-                        <th scope="row">9</th>
-                        <td>Fave Lorem Ipsum</td>
-                        <td>$$</td>
-                        <td><img src="images\star.png" height="20"></td>
-                        <td>m</td>
-                    <tr class="table-info">
-                        <th scope="row">10</th>
-                        <td>Fave Lorem Ipsum</td>
-                        <td>$$</td>
-                        <td><img src="images\star.png" height="20"></td>
-                        <td>m</td>                       
-                    </tr>
+                <tbody id="favorites-body">
+                    <!-- Favorites will be loaded here -->
                 </tbody>
             </table>
         </div>
     </div>
-
-
-
-
 
     <!-- our own footer goes here -->
     <site-footer></site-footer>
@@ -124,6 +59,7 @@
     <!---------------------------------------------->
 
     <script type="module" src="/src/app.js"></script>
+    <script type="module" src="/src/favorites.js"></script>
 </body>
 
 </html>
