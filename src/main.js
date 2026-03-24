@@ -118,7 +118,12 @@ function displayPostsFromFirebase() {
              <div class="flex-grow-1 pe-2">
         <h6 class="mb-1">${post.restaurantName}</h6>
 
-        <small>⭐ ${post.rating || "N/A"} | ${post.cuisine || "Unknown"}</small>
+        <small><p class="mb-1">
+                  <i class="bi bi-star-fill text-warning"></i> 
+                   ${post.rating || "N/A"} 
+                 <span class="text-muted">| ${post.cuisine || "Unknown"}</span>
+                </p>
+        </small>
 
         <p class="mb-1 small">${post.description || ""}</p>
       </div>

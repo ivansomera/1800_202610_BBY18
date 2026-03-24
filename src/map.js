@@ -1,69 +1,20 @@
-import * as maplibregl from "maplibre-gl";
-// ------------------------------------------------------------
-// Global variable to store user location, hike data - good practice
-// ------------------------------------------------------------
+import { db } from "./firebaseConfig.js";
+import { collection, getDocs } from "firebase/firestore";
+import maplibregl from "maplibre-gl";
+import "maplibre-gl/dist/maplibre-gl.css";
 
-// Placeholder -----
+// Get gems from Firestore
+async function getGems() {
+  const snapshot = await getDocs(collection(db, "gems"));
 
-const gems = {
-  type: "HiddenGems",
-  features: [
-    {
-      type: "Gem",
-      properties: {
-        restaurantName: "Haidilao",
-        iconSize: [40, 40],
-      },
-      geometry: {
-        type: "Point",
-        coordinates: [-123.0010676417778, 49.26759839133271],
-      },
-    },
-    {
-      type: "Gem",
-      properties: {
-        restaurantName: "Chipotle",
-        iconSize: [40, 40],
-      },
-      geometry: {
-        type: "Point",
-        coordinates: [-123.00199116377546, 49.22614960451131],
-      },
-    },
-    {
-      type: "Gem",
-      properties: {
-        restaurantName: "Breka",
-        iconSize: [40, 40],
-      },
-      geometry: {
-        type: "Point",
-        coordinates: [-123.1268370178176, 49.279767512179944],
-      },
-    },
-    {
-      type: "Gem",
-      properties: {
-        restaurantName: "Green Leaf Sushi",
-        iconSize: [40, 40],
-      },
-      geometry: {
-        type: "Point",
-        coordinates: [-122.89775423069463, 49.25341712894057],
-      },
-    },
-  ],
-};
+  return snapshot.docs.map((doc) => doc.data());
+}
 
 const appState = {
-  hikes: [],
+  gems: [],
   userLngLat: null,
 };
 
-// ------------------------------------------------------------
-// This top level function initializes the MapLibre map, adds controls
-// It waits for the map to load before trying to add sources/layers.
-// ------------------------------------------------------------
 function showMap() {
   // Initialize MapLibre
   // Centered at BCIT
@@ -78,36 +29,99 @@ function showMap() {
   // Add controls (zoom, rotation, etc.) shown in top-right corner of map
   addControls(map);
 
-  // Once the map loads, we can add the user location and hike markers, etc.
-  // We wait for the "load" event to ensure the map is fully initialized before we try to add sources/layers.
   map.once("load", async () => {
-    // Choose either the built-in geolocate control or the manual pin method
-
-    console.log("map loaded, placed user pin!");
-    gems.features.forEach((marker) => {
-      // create a DOM element for the marker
-      const el = document.createElement("div");
-      el.className = "marker";
-      el.style.backgroundImage = `url('/images/diamond.png')`;
-      el.style.width = `${marker.properties.iconSize[0]}px`;
-      el.style.height = `${marker.properties.iconSize[1]}px`;
-      el.style.backgroundRepeat = "no-repeat";
-      el.style.backgroundSize = "contain";
-      el.addEventListener("click", () => {
-        window.alert(marker.properties.restaurantName);
-      });
-
-      // add marker to map
-      new maplibregl.Marker({ element: el })
-        .setLngLat(marker.geometry.coordinates)
-        .addTo(map);
-    });
+    showGems(map);
   });
 
   function addControls(map) {
     // Zoom and rotation
     map.addControl(new maplibregl.NavigationControl(), "top-right");
   }
+}
+
+// Display gems from database
+async function showGems(map) {
+  const snapshot = await getGems();
+
+  snapshot.forEach((doc) => {
+    // create a DOM element for the marker
+    const el = document.createElement("div");
+    el.className = "marker";
+    el.style.backgroundImage = `url('/images/diamond.png')`;
+    el.style.backgroundRepeat = "no-repeat";
+    el.style.width = "30px";
+    el.style.height = "30px";
+    el.style.backgroundSize = "contain";
+
+    // create popup
+    const popup = new maplibregl.Popup({ offset: 25, maxWidth: "428px" })
+      .setHTML(`
+          <div class="card-body">
+            <h5 class="card-title">${doc.name}</h5>
+            <ul class="d-flex gap-3 p-0">
+              <li class="card-location">${doc.location}</li>
+              <li class="card-cuisine">${doc.cuisine}</li>
+              <li class="card-cost">${doc.cost}</li>
+            </ul>
+            <ul class="d-flex p-0 gap-3 list-unstyled">
+              <li>
+                <a
+                  href="#"
+                  class="d-flex flex-column card-link text-decoration-none align-items-center"
+                  ><img
+                    src="public/images/menu.svg"
+                    alt="Menu icon"
+                    width="24"
+                    height="24"
+                  />Menu</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="d-flex flex-column card-link text-decoration-none align-items-center"
+                  ><img
+                    src="public/images/reviews.svg"
+                    alt="Reviews icon"
+                    width="24"
+                    height="24"
+                  />Reviews</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="d-flex flex-column card-link text-decoration-none align-items-center"
+                  ><img
+                    src="public/images/map.svg"
+                    alt="Map icon"
+                    width="24"
+                    height="24"
+                  />Location</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="d-flex flex-column card-link text-decoration-none align-items-center"
+                  ><img
+                    src="public/images/favorite.svg"
+                    alt="Heart icon"
+                    width="24"
+                    height="24"
+                  />Favorite</a
+                >
+              </li>
+            </ul>
+          </div>
+        `);
+
+    // add marker to map w/ popup
+    new maplibregl.Marker({ element: el })
+      .setLngLat([doc.lng, doc.lat])
+      .setPopup(popup)
+      .addTo(map);
+  });
 }
 
 showMap();
