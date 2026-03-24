@@ -77,15 +77,15 @@ async function showGems(map) {
                 >
               </li>
               <li>
-                <a
-                  href="#"
+                <button
+                  id="writeReviewBtn"
                   class="d-flex flex-column card-link text-decoration-none align-items-center"
                   ><img
                     src="public/images/reviews.svg"
                     alt="Reviews icon"
                     width="24"
                     height="24"
-                  />Reviews</a
+                  />Reviews</button
                 >
               </li>
               <li>
@@ -125,3 +125,26 @@ async function showGems(map) {
 }
 
 showMap();
+
+// Adds Review Functionality (UNFINISHED)
+// document.addEventListener('DOMContentLoaded', () => {
+//     const writeReviewBtn = document.getElementById('writeReviewBtn');
+//     writeReviewBtn.addEventListener('click', saveRestoIDAndRedirect);
+// });
+
+// function saveRestoIDAndRedirect() {
+//     const params = new URL(window.location.href);
+//     const gemID = params.searchParams.get("docID");
+
+//     if (!gemID) {
+//         console.warn("No hike ID found in URL. Cannot continue.");
+//         return;
+//     }
+
+//     // Save the hike ID locally;  provide the key, and the value
+//     localStorage.setItem('gemDocID', gemID);
+
+//     // Redirect to the review page
+//     window.location.href = 'reviewPage.html';
+//     console.log("boop!")
+// }
