@@ -7,8 +7,13 @@ import "maplibre-gl/dist/maplibre-gl.css";
 async function getGems() {
   const snapshot = await getDocs(collection(db, "gems"));
 
-  return snapshot.docs.map((doc) => doc.data());
+  return snapshot.docs.map((doc) => ({
+    id: doc.id,
+    ...doc.data(),
+  }));
 }
+
+console.log("URL:", window.location.search);
 
 const appState = {
   gems: [],
@@ -44,6 +49,8 @@ async function showGems(map) {
   const snapshot = await getGems();
 
   snapshot.forEach((doc) => {
+
+    
     // create a DOM element for the marker
     const el = document.createElement("div");
     el.className = "marker";
@@ -66,7 +73,7 @@ async function showGems(map) {
             <ul class="d-flex p-0 gap-3 list-unstyled">
               <li>
                 <a
-                  href="#"
+                  href="menu.html?id=${doc.id}"
                   class="d-flex flex-column card-link text-decoration-none align-items-center"
                   ><img
                     src="public/images/menu.svg"
