@@ -1,98 +1,128 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <title>Restogem</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<head>
-  <title>Restogem</title>
-  <!-- Required meta tags -->
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Web Components for shared navbar and footer layout -->
+    <link rel="stylesheet" href="/src/styles/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+    />
+    <script type="module" src="/src/components/site-footer.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
 
-  <!-- Web Components for shared navbar and footer layout -->
-  <link rel="stylesheet" href="/src/styles/style.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-  <script type="module" src="/src/components/site-footer.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/maplibre-gl@5.19.0/dist/maplibre-gl.css"
+    />
+    <script src="https://unpkg.com/maplibre-gl@5.19.0/dist/maplibre-gl.js"></script>
+    <script type="module" src="/src/components/site-navbar.js"></script>
+    <script type="module" src="/src/components/site-footer.js"></script>
+  </head>
 
-  <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.19.0/dist/maplibre-gl.css" />
-  <script src="https://unpkg.com/maplibre-gl@5.19.0/dist/maplibre-gl.js"></script>
-</head>
+  <body>
+    <site-navbar></site-navbar>
 
-<body>
-  <nav class="main-top-navbar" id="mainTopNavbar">
-    <button class="main-nav-icon" type="button" aria-label="Search">
-      <i class="fa-solid fa-magnifying-glass"></i>
-    </button>
-
-    <div class="main-nav-buttons">
-      <button class="main-nav-btn active" type="button" data-category="pizza">Pizza</button>
-      <button class="main-nav-btn" type="button" data-category="burgers">Burgers</button>
-      <button class="main-nav-btn" type="button" data-category="sushi">Sushi</button>
-    </div>
-
-    <button class="main-nav-icon dark" type="button" aria-label="Profile">
-      <i class="fa-solid fa-user"></i>
-    </button>
-  </nav>
-
-  <!-- Main content goes here -->
-  <div class="container-fluid bg-light text-dark p-5">
-    <div class="mb-3">
-      <a href="createPost.html" class="btn btn-primary"> Create Post </a>
-    </div>
-
-    <!-- PLACEHOLDER, this will be shown when clicked on map -->
-    <div id="map" style="width: 100%; height: 400px"></div>
-
+    <!-- Main content goes here -->
     <div class="container-fluid bg-light text-dark p-5">
-      <h3 class="mt-4">Gems</h3>
-      <div id="gems-go-here" class="d-flex flex-row flex-wrap gap-3"></div>
-
-      <h3 class="mt-4">Posts</h3>
-      <div id="posts-go-here" class="row"></div>
+      <div class="mb-3">
+        <a href="createPost.html" class="btn btn-primary"> Create Post </a>
+      </div>
 
       <!-- PLACEHOLDER, this will be shown when clicked on map -->
-      <nav id="filter-group" class="filter-group"></nav>
+      <div id="map" style="width: 100%; height: 400px"></div>
+
+      <div class="container-fluid bg-light text-dark p-5">
+        <h3 class="mt-4">Gems</h3>
+        <div id="gems-go-here" class="d-flex flex-row flex-wrap gap-3"></div>
+
+        <h3 class="mt-4">Posts</h3>
+        <div id="posts-go-here" class="row"></div>
+
+        <!-- PLACEHOLDER, this will be shown when clicked on map -->
+        <nav id="filter-group" class="filter-group"></nav>
+      </div>
+
+      <!-- Card popup template -->
+      <div class="card" style="width: 20rem">
+        <template id="restaurantCardTemplate">
+          <div class="card-body">
+            <h5 class="card-title"></h5>
+            <ul class="d-flex gap-3 p-0">
+              <li class="card-location"></li>
+              <li class="card-cuisine"></li>
+              <li class="card-cost"></li>
+            </ul>
+            <ul class="d-flex p-0 gap-3 list-unstyled">
+              <li>
+                <a
+                  href="#"
+                  class="d-flex flex-column card-link text-decoration-none align-items-center"
+                  ><img
+                    src="public/images/menu.svg"
+                    alt="Menu icon"
+                    width="24"
+                    height="24"
+                  />Menu</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="d-flex flex-column card-link text-decoration-none align-items-center"
+                  ><img
+                    src="public/images/reviews.svg"
+                    alt="Reviews icon"
+                    width="24"
+                    height="24"
+                  />Reviews</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="d-flex flex-column card-link text-decoration-none align-items-center"
+                  ><img
+                    src="public/images/map.svg"
+                    alt="Map icon"
+                    width="24"
+                    height="24"
+                  />Location</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="d-flex flex-column card-link text-decoration-none align-items-center"
+                  ><img
+                    src="public/images/favorite.svg"
+                    alt="Heart icon"
+                    width="24"
+                    height="24"
+                  />Favorite</a
+                >
+              </li>
+            </ul>
+          </div>
+        </template>
+      </div>
     </div>
 
-    <!-- Card popup template -->
-    <div class="card" style="width: 20rem">
-      <template id="restaurantCardTemplate">
-        <div class="card-body">
-          <h5 class="card-title"></h5>
-          <ul class="d-flex gap-3 p-0">
-            <li class="card-location"></li>
-            <li class="card-cuisine"></li>
-            <li class="card-cost"></li>
-          </ul>
-          <ul class="d-flex p-0 gap-3 list-unstyled">
-            <li>
-              <a href="#" class="d-flex flex-column card-link text-decoration-none align-items-center"><img
-                  src="public/images/menu.svg" alt="Menu icon" width="24" height="24" />Menu</a>
-            </li>
-            <li>
-              <a href="#" class="d-flex flex-column card-link text-decoration-none align-items-center"><img
-                  src="public/images/reviews.svg" alt="Reviews icon" width="24" height="24" />Reviews</a>
-            </li>
-            <li>
-              <a href="#" class="d-flex flex-column card-link text-decoration-none align-items-center"><img
-                  src="public/images/map.svg" alt="Map icon" width="24" height="24" />Location</a>
-            </li>
-            <li>
-              <a href="#" class="d-flex flex-column card-link text-decoration-none align-items-center"><img
-                  src="public/images/favorite.svg" alt="Heart icon" width="24" height="24" />Favorite</a>
-            </li>
-          </ul>
-        </div>
-      </template>
-    </div>
-  </div>
+    <site-footer></site-footer>
 
-  <site-footer></site-footer>
-
-  <script type="module" src="/src/map.js"></script>
-  <script type="module" src="/src/app.js"></script>
-  <script type="module" src="/src/main.js"></script>
-</body>
-
+    <script type="module" src="/src/map.js"></script>
+    <script type="module" src="/src/app.js"></script>
+    <script type="module" src="/src/main.js"></script>
+  </body>
 </html>
