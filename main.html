@@ -35,29 +35,18 @@
     <site-navbar></site-navbar>
 
     <!-- Main content goes here -->
-    <div class="container-fluid bg-light text-dark p-5">
-      <div class="mb-3">
+    <div class="container-fluid bg-light text-dark p-0 position-relative">
+      <!-- PLACEHOLDER, this will be shown when clicked on map -->
+      <div id="map" style="width: 100%; height: 400px" ></div>
+
+      <div class="position-absolute top-0 start-0" mb-3">
         <a href="createGem.html" class="btn btn-primary">
-          This will be an icon on map
+          Create a gem
         </a>
       </div>
 
-      <!-- PLACEHOLDER, this will be shown when clicked on map -->
-      <div id="map" style="width: 100%; height: 400px"></div>
-
-      <div class="container-fluid bg-light text-dark p-5">
-        <h3 class="mt-4">Gems</h3>
-        <div id="gems-go-here" class="d-flex flex-row flex-wrap gap-3"></div>
-
-        <h3 class="mt-4">Posts</h3>
-        <div id="posts-go-here" class="row"></div>
-
-        <!-- PLACEHOLDER, this will be shown when clicked on map -->
-        <nav id="filter-group" class="filter-group"></nav>
-      </div>
-
       <!-- Card popup template -->
-      <div class="card" style="width: 20rem">
+      <!-- <div class="card" style="width: 20rem">
         <template id="restaurantCardTemplate">
           <div class="card-body">
             <h5 class="card-title"></h5>
@@ -118,7 +107,7 @@
             </ul>
           </div>
         </template>
-      </div>
+      </div> -->
     </div>
 
     <site-footer></site-footer>
