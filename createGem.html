@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Create a Gem</title>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="/src/styles/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <!-- Navbar and footer components -->
+    <script type="module" src="/src/components/site-navbar.js"></script>
+    <script type="module" src="/src/components/site-footer.js"></script>
+  </head>
+
+  <body>
+    <site-navbar></site-navbar>
+
+    <div class="container-fluid bg-light text-dark p-5">
+      <div class="container mt-4">
+        <h1>Create a gem</h1>
+
+        <form>
+          <div class="form-group mb-3">
+            <label>Name</label>
+            <input
+              type="text"
+              id="restaurantName"
+              class="form-control"
+              placeholder="Enter restaurant name"
+            />
+          </div>
+
+          <div class="form-group">
+            <label>Description</label>
+            <textarea
+              id="description"
+              rows="4"
+              cols="50"
+              class="form-control"
+              required
+            ></textarea>
+          </div>
+
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            required
+          >
+            <option selected>Open this select menu</option>
+            <option value="1">One</option>
+            <option value="2">Two</option>
+            <option value="3">Three</option>
+          </select>
+
+          <div class="d-flex mt-5">
+            <button id="postButton" type="button" class="btn btn-info">
+              Add gem
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <site-footer></site-footer>
+
+    <script type="module" src="/src/createGem.js"></script>
+  </body>
+</html>
