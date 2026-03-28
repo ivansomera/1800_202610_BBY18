@@ -49,8 +49,6 @@ async function showGems(map) {
   const snapshot = await getGems();
 
   snapshot.forEach((doc) => {
-
-    
     // create a DOM element for the marker
     const el = document.createElement("div");
     el.className = "marker";
@@ -66,7 +64,7 @@ async function showGems(map) {
           <div class="card-body">
             <h5 class="card-title">${doc.name}</h5>
             <ul class="d-flex gap-3 p-0">
-              <li class="card-location">${doc.location}</li>
+              <li class="card-location"></li>
               <li class="card-cuisine">${doc.cuisine}</li>
               <li class="card-cost">${doc.cost}</li>
             </ul>
@@ -125,7 +123,7 @@ async function showGems(map) {
 
     // add marker to map w/ popup
     new maplibregl.Marker({ element: el })
-      .setLngLat([doc.lng, doc.lat])
+      .setLngLat([doc.location.lng, doc.location.lat])
       .setPopup(popup)
       .addTo(map);
   });
