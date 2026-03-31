@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Restaurant Menu</title>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+
+  <script type="module" src="/src/components/site-navbar.js"></script>
+  <script type="module" src="/src/components/site-footer.js"></script>
+</head>
+
+<body>
+
+  <site-navbar></site-navbar>
+
+  <div class="container mt-4">
+  
+    <!-- Restaurant Header -->
+    <div class="card shadow-sm mb-4 p-3">
+      <h2>Menu</h2> 
+      <p id="restaurant-info" class="text-muted"></p>
+    </div>
+
+    <!-- Menu Sections -->
+    <div class="row">
+
+      
+      <!-- Starters -->
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Starters</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between">
+                <span>
+                  <img src="/images/spring.png" width="40" class="me-2 rounded">
+                  Spring Rolls
+                </span>
+                <span>$6</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span>
+                  <img src="/images/soup.png" width="40" class="me-2 rounded">
+                  Soup
+                </span>
+                <span>$5</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main -->
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Main Course</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between">
+                <span>
+                  <img src="/images/burger.png" width="40" class="me-2 rounded">
+                  Burger
+                </span>
+                <span>$12</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span>
+                  <img src="/images/pasta.png" width="40" class="me-2 rounded">
+                  Pasta
+                </span>
+                <span>$14</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Drinks -->
+      <div class="col-md-4">
+        <div class="card mb-4 shadow-sm">
+          <div class="card-body">
+            <h5 class="card-title">Drinks</h5>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between">
+                <span>
+                  <img src="/images/coke.png" width="40" class="me-2 rounded">
+                  Coke
+                </span>
+                <span>$3</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between">
+                <span>
+                  <img src="/images/juice.png" width="40" class="me-2 rounded">
+                  Juice
+                </span>
+                <span>$4</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <site-footer></site-footer>
+
+  <script type="module" src="/src/menu.js"></script>
+
+
+</body>
+
+</html>
