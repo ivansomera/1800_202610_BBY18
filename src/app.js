@@ -17,13 +17,8 @@ function showName() {
 
   onAuthReady((user) => {
     if (!user) {
-      if (window.location.pathname.endsWith('main.html')) {
-        location.href = 'index.html';
-      }
-      return;
-    } else {
-      if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) {
-        location.href = 'main.html';
+      if (window.location.pathname.endsWith("main.html")) {
+        location.href = "index.html";
       }
       return;
     }
