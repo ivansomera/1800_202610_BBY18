@@ -53,8 +53,9 @@ async function savePost() {
 
   const name = document.getElementById("name").value;
   const desc = document.getElementById("description").value;
-  const category = document.getElementById("category").value;
-
+  const category = document.querySelector(
+    'input[name="category"]:checked',
+  ).value;
   // 2️⃣ Get the lnglat from global variable that saved when we clicked map
 
   if (!selectedLngLat) {

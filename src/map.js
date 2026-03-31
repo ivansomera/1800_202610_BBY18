@@ -69,7 +69,7 @@ async function showGems(map) {
               <li class="text-muted">Added at ${date}</li>         
             </ul>
             <p class="card-text">${doc.description}</p>
-            <ul class="d-flex p-0 gap-3 list-unstyled">        
+            <ul class="d-flex p-0 justify-content-between w-100 list-unstyled">        
               <li>
                 <a
                   href="#"
