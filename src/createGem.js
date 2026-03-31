@@ -18,8 +18,10 @@ import {
 // Add event listener to the "Save Post" button
 //-------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {
-  const postButton = document.getElementById("postButton");
-  postButton.addEventListener("click", savePost);
+  document.querySelector("#form").addEventListener("submit", (e) => {
+    e.preventDefault();
+    savePost();
+  });
 });
 
 //------------------------------------------------------------
@@ -45,6 +47,7 @@ async function savePost() {
 
   const name = document.getElementById("name").value;
   const desc = document.getElementById("description").value;
+  const test = document.getElementById("test").value;
 
   // 2️⃣ Get the lnglat from global variable that saved when we clicked map
 
@@ -58,6 +61,7 @@ async function savePost() {
     const docRef = await addDoc(collection(db, "gems"), {
       owner: user.uid,
       name: name,
+      test: test,
       description: desc,
       last_updated: serverTimestamp(),
       location: {
