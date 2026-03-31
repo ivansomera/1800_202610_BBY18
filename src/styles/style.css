@@ -305,3 +305,115 @@ main {
 .reviews-page .review-card p {
   margin-bottom: 8px;
 }
+
+/* ==========================================
+   Main Page Figma Navbar
+========================================== */
+
+.figma-navbar {
+  background: #a9a9a9;
+  padding: 14px 18px 12px;
+  width: 100%;
+  position: relative;
+  z-index: 1000;
+}
+
+.nav-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.nav-logo {
+  width: 42px;
+  height: 42px;
+  background: #e5e5e5;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.nav-search {
+  flex: 1;
+}
+
+.nav-search input {
+  width: 100%;
+  height: 38px;
+  border: none;
+  border-radius: 10px;
+  background: #e9e9e9;
+  padding: 0 14px;
+  font-size: 14px;
+  outline: none;
+}
+
+.nav-menu {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 22px;
+  flex-shrink: 0;
+  cursor: pointer;
+
+  /* added for dropdown */
+  position: relative;
+}
+
+/* FIX: center filters */
+.nav-filters {
+  display: flex;
+  justify-content: center; /* 🔥 center */
+  gap: 12px;
+  margin-top: 14px;
+  padding-left: 0; /* 🔥 remove left shift */
+}
+
+.filter-btn {
+  background: #d9d9d9;
+  border: none;
+  border-radius: 12px;
+  padding: 8px 18px;
+  font-size: 13px;
+  color: #666;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.filter-btn:hover {
+  background: #cfcfcf;
+}
+
+.filter-btn.active {
+  background: white;
+  color: #333;
+  font-weight: 600;
+}
+
+/*  NEW: dropdown menu */
+.dropdown-menu-custom {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 42px;
+  background: white;
+  border-radius: 10px;
+  width: 130px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  overflow: hidden;
+}
+
+.dropdown-menu-custom a {
+  display: block;
+  padding: 10px 12px;
+  text-decoration: none;
+  color: #333;
+  font-size: 14px;
+}
+
+.dropdown-menu-custom a:hover {
+  background: #f2f2f2;
+}

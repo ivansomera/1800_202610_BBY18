@@ -21,3 +21,20 @@ navButtons.forEach((button) => {
     button.classList.add("active");
   });
 });
+
+// Hamburger dropdown
+const menuButton = document.querySelector(".nav-menu");
+const dropdownMenu = document.getElementById("dropdownMenu");
+
+if (menuButton && dropdownMenu) {
+  menuButton.addEventListener("click", (event) => {
+    event.stopPropagation();
+    dropdownMenu.classList.toggle("show");
+  });
+
+  document.addEventListener("click", (event) => {
+    if (!dropdownMenu.contains(event.target) && !menuButton.contains(event.target)) {
+      dropdownMenu.classList.remove("show");
+    }
+  });
+}
