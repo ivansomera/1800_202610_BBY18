@@ -1,41 +1,70 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>My BCIT Project</title>
-    <meta name="comp1800 template" content="My 1800 App" />
-
+    <title>Restogem</title>
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- Web Components for shared navbar and footer layout -->
+    <link rel="stylesheet" href="/src/styles/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+    />
+    <script type="module" src="/src/components/site-footer.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/maplibre-gl@5.19.0/dist/maplibre-gl.css"
+    />
+    <script src="https://unpkg.com/maplibre-gl@5.19.0/dist/maplibre-gl.js"></script>
     <script type="module" src="/src/components/site-navbar.js"></script>
     <script type="module" src="/src/components/site-footer.js"></script>
   </head>
 
   <body>
     <site-navbar></site-navbar>
-
     <!-- Main content goes here -->
-    <div class="container-fluid bg-light text-dark p-5">
-      <div id="map" style="width: 100%; height: 400px"></div>
-      <div class="card" style="width: 20rem">
-        <div class="card-body">
-          <h5 class="card-title">The Restaurant</h5>
-          <h6 class="card-subtitle mb-2 text-muted">
-            1.0km away | Japanese | $$
-          </h6>
-          <a href="#" class="card-link">Menu</a>
-          <a href="#" class="card-link">Reviews</a>
-          <a href="#" class="card-link">Location</a>
-          <a href="#" class="card-link">Favorite</a>
-        </div>
+    <main class="container-fluid bg-light text-dark p-0 position-relative home">
+      <!-- PLACEHOLDER, this will be shown when clicked on map -->
+      <div id="map" style="width: 100%; height: 100%"></div>
+
+      <div class="position-absolute bottom-0 start-0 mb-3 ms-3">
+        <a href="/createGem">
+          <img
+            src="/public/images/add.svg"
+            alt="add post"
+            width="50"
+            height="50"
+          />
+        </a>
       </div>
-    </div>
+
+      <!-- Card popup template -->
+      <!-- (unchanged) -->
+    </main>
 
     <site-footer></site-footer>
 
+    <!-- JS FOR HAMBURGER -->
+    <script>
+      function toggleMenu() {
+        const menu = document.getElementById("dropdownMenu");
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+      }
+    </script>
+
+    <script type="module" src="/src/map.js"></script>
     <script type="module" src="/src/app.js"></script>
-    <script type="module" src="./src/map.js"></script>
+    <script type="module" src="/src/main.js"></script>
   </body>
 </html>
