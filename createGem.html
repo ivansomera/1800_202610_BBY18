@@ -31,60 +31,167 @@
           <h1>Create a gem</h1>
 
           <form id="form">
-            <div class="form-group mb-3">
-              <label>Name</label>
+            <!-- Name -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Name</label>
               <input
                 type="text"
                 id="name"
                 class="form-control"
                 placeholder="Enter a hidden gem"
+                required
               />
             </div>
 
-            <div class="form-group">
-              <label>Description</label>
+            <!-- Category -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Category</label>
+              <div class="d-flex flex-wrap gap-2">
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="category"
+                  id="nearVenue"
+                  value="Near a Venue"
+                  required
+                />
+                <label
+                  class="btn btn-outline-secondary rounded-pill"
+                  for="nearVenue"
+                  >🚇 Near a Venue</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="category"
+                  id="quickBite"
+                  value="Quick Bite"
+                />
+                <label
+                  class="btn btn-outline-secondary rounded-pill"
+                  for="quickBite"
+                  >⚡ Quick Bite</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="category"
+                  id="watchParty"
+                  value="Watch Party"
+                />
+                <label
+                  class="btn btn-outline-secondary rounded-pill"
+                  for="watchParty"
+                  >🍺 Watch Party</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="category"
+                  id="cheapEats"
+                  value="Cheap Eats"
+                />
+                <label
+                  class="btn btn-outline-secondary rounded-pill"
+                  for="cheapEats"
+                  >💸 Cheap Eats</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="category"
+                  id="momAndPop"
+                  value="Mom & Pop"
+                />
+                <label
+                  class="btn btn-outline-secondary rounded-pill"
+                  for="momAndPop"
+                  >🏠 Mom & Pop</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="category"
+                  id="onlyInVancouver"
+                  value="Only in Vancouver"
+                />
+                <label
+                  class="btn btn-outline-secondary rounded-pill"
+                  for="onlyInVancouver"
+                  >🌏 Only in Vancouver</label
+                >
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Description</label>
               <textarea
                 id="description"
                 rows="4"
-                cols="50"
                 class="form-control"
+                placeholder="What makes this place special?"
                 required
               ></textarea>
             </div>
 
-            <select
-              id="test"
-              class="form-select"
-              aria-label="Default select example"
-              required
-            >
-              <option selected>Open this select menu</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
-            </select>
-
-            <div class="form-group mt-3">
-              <label>Choose location on map:</label>
-              <div id="pickMap" style="height: 300px; width: 100%"></div>
+            <!-- Map -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold"
+                >Choose location on map</label
+              >
+              <div
+                id="pickMap"
+                class="rounded border"
+                style="height: 300px; width: 100%"
+              ></div>
             </div>
 
-            <div class="form-group mt-3">
-              <label for="latitude">Latitude:</label>
-              <input type="text" id="latitude" readonly class="form-control" />
+            <!-- Lat/Lng -->
+            <div class="row mb-3">
+              <div class="col">
+                <label for="latitude" class="form-label fw-semibold"
+                  >Latitude</label
+                >
+                <input
+                  type="text"
+                  id="latitude"
+                  readonly
+                  class="form-control bg-light"
+                />
+              </div>
+              <div class="col">
+                <label for="longitude" class="form-label fw-semibold"
+                  >Longitude</label
+                >
+                <input
+                  type="text"
+                  id="longitude"
+                  readonly
+                  class="form-control bg-light"
+                />
+              </div>
             </div>
 
-            <div class="form-group mt-3">
-              <label for="longitude">Longitude:</label>
-              <input type="text" id="longitude" readonly class="form-control" />
-            </div>
-
-            <div class="d-flex mt-5">
-              <button id="postButton" type="submit" class="btn btn-info">
+            <!-- Submit -->
+            <div class="d-grid">
+              <button
+                id="postButton"
+                type="submit"
+                class="btn btn-info text-light"
+              >
                 Add gem
               </button>
             </div>
           </form>
+          <div id="successMsg" class="alert alert-success mt-3 d-none">
+            Gem added successfully!
+          </div>
         </div>
       </div>
     </main>
