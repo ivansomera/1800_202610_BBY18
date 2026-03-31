@@ -32,7 +32,37 @@
   </head>
 
   <body>
-    <site-navbar></site-navbar>
+    <!-- NEW FIGMA NAVBAR -->
+    <nav class="figma-navbar">
+
+      <div class="nav-top">
+
+        <div class="nav-logo"></div>
+
+        <div class="nav-search">
+          <input type="text" placeholder="Search..." />
+        </div>
+
+        <div class="nav-menu">
+          <i class="fa-solid fa-bars" onclick="toggleMenu()"></i>
+
+          <!-- DROPDOWN ADDED -->
+          <div class="dropdown-menu-custom" id="dropdownMenu">
+            <a href="#">Profile</a>
+            <a href="#">Logout</a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- FILTERS -->
+      <div class="nav-filters">
+        <button class="filter-btn main-nav-btn">Pizza</button>
+        <button class="filter-btn main-nav-btn">Burgers</button>
+        <button class="filter-btn main-nav-btn">Sushi</button>
+      </div>
+
+    </nav>
 
     <!-- Main content goes here -->
     <main class="container-fluid bg-light text-dark p-0 position-relative home">
@@ -51,71 +81,19 @@
       </div>
 
       <!-- Card popup template -->
-      <!-- <div class="card" style="width: 20rem">
-        <template id="restaurantCardTemplate">
-          <div class="card-body">
-            <h5 class="card-title"></h5>
-            <ul class="d-flex gap-3 p-0">
-              <li class="card-location"></li>
-              <li class="card-cuisine"></li>
-              <li class="card-cost"></li>
-            </ul>
-            <ul class="d-flex p-0 gap-3 list-unstyled">
-              <li>
-                <a
-                  href="#"
-                  class="d-flex flex-column card-link text-decoration-none align-items-center"
-                  ><img
-                    src="public/images/menu.svg"
-                    alt="Menu icon"
-                    width="24"
-                    height="24"
-                  />Menu</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="d-flex flex-column card-link text-decoration-none align-items-center"
-                  ><img
-                    src="public/images/reviews.svg"
-                    alt="Reviews icon"
-                    width="24"
-                    height="24"
-                  />Reviews</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="d-flex flex-column card-link text-decoration-none align-items-center"
-                  ><img
-                    src="public/images/map.svg"
-                    alt="Map icon"
-                    width="24"
-                    height="24"
-                  />Location</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="d-flex flex-column card-link text-decoration-none align-items-center"
-                  ><img
-                    src="public/images/favorite.svg"
-                    alt="Heart icon"
-                    width="24"
-                    height="24"
-                  />Favorite</a
-                >
-              </li>
-            </ul>
-          </div>
-        </template>
-      </div> -->
+      <!-- (unchanged) -->
     </main>
 
     <site-footer></site-footer>
+
+    <!-- JS FOR HAMBURGER -->
+    <script>
+      function toggleMenu() {
+        const menu = document.getElementById("dropdownMenu");
+        menu.style.display =
+          menu.style.display === "block" ? "none" : "block";
+      }
+    </script>
 
     <script type="module" src="/src/map.js"></script>
     <script type="module" src="/src/app.js"></script>
