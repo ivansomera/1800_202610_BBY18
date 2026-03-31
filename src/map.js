@@ -50,7 +50,7 @@ async function showGems(map) {
 
   snapshot.forEach((doc) => {
     const date = doc.last_updated.toDate().toLocaleDateString();
-    // create a DOM element for the marker
+
     const el = document.createElement("div");
     el.className = "marker";
     el.style.backgroundImage = `url('/images/diamond.png')`;
@@ -59,7 +59,6 @@ async function showGems(map) {
     el.style.height = "30px";
     el.style.backgroundSize = "contain";
 
-    // create popup
     const popup = new maplibregl.Popup({ offset: 25, maxWidth: "428px" })
       .setHTML(`
           <div class="card-body">
@@ -73,7 +72,7 @@ async function showGems(map) {
               <li>
                 <a
                   href="#"
-                  class="d-flex flex-column card-link text-decoration-none align-items-center"
+                  class="review-link d-flex flex-column card-link text-decoration-none align-items-center"
                   ><img
                     src="public/images/reviews.svg"
                     alt="Reviews icon"
@@ -124,13 +123,24 @@ async function showGems(map) {
           </div>
         `);
 
-    // add marker to map w/ popup
+    
+    popup.on("open", () => {
+      const popupElement = popup.getElement();
+      const reviewLink = popupElement.querySelector(".review-link");
+
+      if (reviewLink) {
+        reviewLink.addEventListener("click", (event) => {
+          event.preventDefault();
+          window.location.href = `reviews.html?restaurant=${encodeURIComponent(doc.name)}`;
+        });
+      }
+    });
+
     new maplibregl.Marker({ element: el })
       .setLngLat([doc.location.lng, doc.location.lat])
       .setPopup(popup)
       .addTo(map);
 
-    // Creates a new id that calls the saveGemDocumentIDAndRedirect function
     document.addEventListener('click', (reviewBtn) => {
       const writeReviewBtn = document.getElementById('reviewBtn');
       if (reviewBtn.target.matches('#reviewBtn')) {
@@ -146,13 +156,8 @@ async function showGems(map) {
         return;
       } else {
         console.log("Gem ID acquired!")
-
-        // Save the hike ID locally;  provide the key, and the value
         localStorage.setItem('gemDocID', gemID);
-
-        // Redirect to the review page
         window.location.href = 'editGem.html';
-
       }
     }
 
