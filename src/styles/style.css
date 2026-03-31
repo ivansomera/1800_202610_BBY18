@@ -231,3 +231,77 @@ main {
 .main-nav-icon:hover {
   opacity: 0.9;
 }
+
+/* ==========================================
+   Reviews Page
+========================================== */
+
+.reviews-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 20px 120px;
+}
+
+.reviews-page #restaurant-title {
+  text-align: center;
+  margin-bottom: 30px;
+  color: #222;
+}
+
+.reviews-page .add-review {
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 30px;
+}
+
+.reviews-page .add-review input,
+.reviews-page .add-review textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+}
+
+.reviews-page .add-review textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.reviews-page .add-review button {
+  background: #12b5ea;
+  color: white;
+  border: none;
+  padding: 12px 18px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.reviews-page .add-review button:hover {
+  opacity: 0.9;
+}
+
+.reviews-page #reviews-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.reviews-page .review-card {
+  background: white;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.reviews-page .review-card h3 {
+  margin-bottom: 8px;
+}
+
+.reviews-page .review-card p {
+  margin-bottom: 8px;
+}
