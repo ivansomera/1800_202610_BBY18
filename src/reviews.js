@@ -10,7 +10,10 @@ import {
 } from "firebase/firestore";
 
 const params = new URLSearchParams(window.location.search);
-const restaurantName = params.get("restaurant");
+
+// supports restaurant, name, or id in URL
+const restaurantName =
+  params.get("restaurant") || params.get("name") || params.get("id");
 
 const title = document.getElementById("restaurant-title");
 const container = document.getElementById("reviews-container");
@@ -23,6 +26,8 @@ let editReviewId = null;
 
 if (restaurantName) {
   title.textContent = `${restaurantName} Reviews`;
+} else {
+  title.textContent = "Restaurant Reviews";
 }
 
 async function loadReviews() {
@@ -82,6 +87,11 @@ submitBtn.addEventListener("click", async () => {
   const userName = userNameInput.value.trim();
   const reviewText = reviewTextInput.value.trim();
   const rating = ratingInput.value.trim();
+
+  if (!restaurantName) {
+    alert("No restaurant selected.");
+    return;
+  }
 
   if (!userName || !reviewText || !rating) {
     alert("Please fill all fields.");

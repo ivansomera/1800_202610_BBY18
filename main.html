@@ -32,38 +32,7 @@
   </head>
 
   <body>
-    <!-- NEW FIGMA NAVBAR -->
-    <nav class="figma-navbar">
-
-      <div class="nav-top">
-
-        <div class="nav-logo"></div>
-
-        <div class="nav-search">
-          <input type="text" placeholder="Search..." />
-        </div>
-
-        <div class="nav-menu">
-          <i class="fa-solid fa-bars" onclick="toggleMenu()"></i>
-
-          <!-- DROPDOWN ADDED -->
-          <div class="dropdown-menu-custom" id="dropdownMenu">
-            <a href="#">Profile</a>
-            <a href="#">Logout</a>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- FILTERS -->
-      <div class="nav-filters">
-        <button class="filter-btn main-nav-btn">Pizza</button>
-        <button class="filter-btn main-nav-btn">Burgers</button>
-        <button class="filter-btn main-nav-btn">Sushi</button>
-      </div>
-
-    </nav>
-
+    <site-navbar></site-navbar>
     <!-- Main content goes here -->
     <main class="container-fluid bg-light text-dark p-0 position-relative home">
       <!-- PLACEHOLDER, this will be shown when clicked on map -->
@@ -90,8 +59,7 @@
     <script>
       function toggleMenu() {
         const menu = document.getElementById("dropdownMenu");
-        menu.style.display =
-          menu.style.display === "block" ? "none" : "block";
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
       }
     </script>
 
