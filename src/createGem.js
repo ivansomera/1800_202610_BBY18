@@ -21,6 +21,12 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#form").addEventListener("submit", (e) => {
     e.preventDefault();
     savePost();
+
+    const msg = document.getElementById("successMsg");
+    msg.classList.remove("d-none");
+
+    // hide it again after 3 seconds
+    setTimeout(() => msg.classList.add("d-none"), 3000);
   });
 });
 
@@ -47,7 +53,7 @@ async function savePost() {
 
   const name = document.getElementById("name").value;
   const desc = document.getElementById("description").value;
-  const test = document.getElementById("test").value;
+  const category = document.getElementById("category").value;
 
   // 2️⃣ Get the lnglat from global variable that saved when we clicked map
 
@@ -61,7 +67,7 @@ async function savePost() {
     const docRef = await addDoc(collection(db, "gems"), {
       owner: user.uid,
       name: name,
-      test: test,
+      category: category,
       description: desc,
       last_updated: serverTimestamp(),
       location: {

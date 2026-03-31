@@ -49,6 +49,7 @@ async function showGems(map) {
   const snapshot = await getGems();
 
   snapshot.forEach((doc) => {
+    const date = doc.last_updated.toDate().toLocaleDateString();
     // create a DOM element for the marker
     const el = document.createElement("div");
     el.className = "marker";
@@ -63,24 +64,12 @@ async function showGems(map) {
       .setHTML(`
           <div class="card-body">
             <h5 class="card-title">${doc.name}</h5>
-            <ul class="d-flex gap-3 p-0">
-              <li class="card-location"></li>
-              <li class="card-cuisine">${doc.cuisine}</li>
-              <li class="card-cost">${doc.cost}</li>
+            <ul class="d-flex gap-3 mb-1 p-0">              
+              <li class="card-cuisine">${doc.category}</li>     
+              <li class="text-muted">Added at ${date}</li>         
             </ul>
-            <ul class="d-flex p-0 gap-3 list-unstyled">
-              <li>
-                <a
-                  href="menu.html?id=${doc.id}"
-                  class="d-flex flex-column card-link text-decoration-none align-items-center"
-                  ><img
-                    src="public/images/menu.svg"
-                    alt="Menu icon"
-                    width="24"
-                    height="24"
-                  />Menu</a
-                >
-              </li>
+            <p class="card-text">${doc.description}</p>
+            <ul class="d-flex p-0 gap-3 list-unstyled">        
               <li>
                 <a
                   href="#"

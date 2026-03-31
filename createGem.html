@@ -38,6 +38,7 @@
                 id="name"
                 class="form-control"
                 placeholder="Enter a hidden gem"
+                required
               />
             </div>
 
@@ -53,15 +54,14 @@
             </div>
 
             <select
-              id="test"
+              id="category"
               class="form-select"
               aria-label="Default select example"
               required
             >
-              <option selected>Open this select menu</option>
-              <option value="1">One</option>
-              <option value="2">Two</option>
-              <option value="3">Three</option>
+              <option selected>Categories</option>
+              <option value="Japanese">Japanese</option>
+              <option value="Indian">Indian</option>
             </select>
 
             <div class="form-group mt-3">
@@ -85,6 +85,9 @@
               </button>
             </div>
           </form>
+          <div id="successMsg" class="alert alert-success mt-3 d-none">
+            Gem added successfully!
+          </div>
         </div>
       </div>
     </main>
