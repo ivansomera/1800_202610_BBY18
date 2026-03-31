@@ -14,36 +14,24 @@ import {
   updateDoc,
 } from "firebase/firestore";
 
-
-//------------------------------------------------------------
-// Gets id of the specified gem from a local storage.
-//-------------------------------------------------------------
-    var gemID = localStorage.getItem('gemDocID');
-    gemInfo(gemID);
-    async function gemInfo(id) {
-        try {
-            const gemRef = doc(db, "gem", id);
-            const gemSnap = await getDoc(gemRef);
-
-            if (gemSnap.exists()) {
-                const gemName = gemSnap.data().name;
-                const gemLat = gemSnap.data().lat;
-                const gemLng = gemSnap.data().lng;
-            } else {
-                console.log("Gem not found!");
-            }
-        } catch (error) {
-            console.error("Error getting gem document:", error);
-        }
-    }
-
 //------------------------------------------------------------
 // Add event listener to the "Edit Post" button
 //-------------------------------------------------------------
 document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#form").addEventListener("submit", (e) => {
     e.preventDefault();
-    editPost();
+
+    var gemID = localStorage.getItem('gemDocID');
+
+    const [longitude, latitude] = selectedLngLat;
+    const nameEdit = document.getElementById("name").value;
+    const descEdit = document.getElementById("description").value;
+    const categoryEdit = document.querySelector(
+    'input[name="category"]:checked',
+    ).value;
+
+    editPost(gemID, nameEdit, descEdit, categoryEdit, longitude, latitude);
+
 
     const msg = document.getElementById("successMsg");
     msg.classList.remove("d-none");
@@ -59,38 +47,44 @@ document.addEventListener("DOMContentLoaded", () => {
 // when the "Edit Post" button is clicked.
 // The map selected location is global variable.
 //-------------------------------------------------------------
-async function editPost() {
+async function editPost(gemID, name, description, category, longitude, latitude) {
   const user = auth.currentUser;
   if (!user) {
     console.log("Error, no user signed in");
     return;
   }
 
-  const name = document.getElementById("name").value;
-  const desc = document.getElementById("description").value;
-  const category = document.querySelector(
-    'input[name="category"]:checked',
-  ).value;
+
   // 2️⃣ Get the lnglat from global variable that Editd when we clicked map
 
   if (!selectedLngLat) {
     alert("Please select a location on the map.");
     return;
   }
-  const [longitude, latitude] = selectedLngLat;
 
   try {
-    const docRef = await setDoc(collection(db, "gems"), {
-      owner: user.uid,
-      name: name,
-      category: category,
-      description: desc,
-      last_updated: serverTimestamp(),
-      location: {
-        lat: latitude,
+    const docRef = doc(db, "gems", gemID);
+    await updateDoc(docRef, {
+        description: description,
+        last_updated: serverTimestamp(),
+        category: category,
+        name: name,
+    }) 
+    await updateDoc(docRef, {
+        location: {
         lng: longitude,
-      },
-    });
+        lat: latitude,
+        }
+    }) 
+
+    //   owner: user.uid,
+    //   name: name,
+    //   category: category,
+    //   description: desc,
+    //   last_updated: serverTimestamp(),
+    //   location: {
+    // lat: latitude,
+    // lng: longitude,
 
     window.location.href = "main.html";
     console.log("1. Post document added!");
@@ -115,11 +109,32 @@ let selectedLngLat = null;
 //-------------------------------------------------------------
 function currentGemLocation() {
 
+    //------------------------------------------------------------
+    // Gets id of the specified gem from a local storage. 
+    // NEEDS MORE WORK!!!!
+    //-------------------------------------------------------------
+
+    // gemInfo(gemID);
+
+    // async function gemInfo(id) {
+    //     try {
+    //         const gemRef = doc(db, "gems", id);
+    //         const gemSnap = await getDoc(gemRef);
+    //         if (gemSnap.exists()) {
+
+    //         } else {
+    //             console.log("Gem not found!");
+    //         }
+    //     } catch (error) {
+    //         console.error("Error getting gem document:", error);
+    //     }
+    // }
+
   // Initialize the Maplibre map centered on the current gem's location with a zoom level of 10
   pickMap = new maplibregl.Map({
     container: "pickMap",
     style: `https://api.maptiler.com/maps/streets/style.json?key=${import.meta.env.VITE_MAPTILER_KEY}`,
-    center: [gemLat, gemLng],
+    center: [-123.00163752324765, 49.25324576104826],
     zoom: 10,
     attributionControl: false,
   });

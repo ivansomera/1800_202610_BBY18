@@ -106,6 +106,20 @@ async function showGems(map) {
                   />Favorite</a
                 >
               </li>
+              <li id="reviewBtn">
+                <a
+                  href="#"
+                  id="writeReviewBtn"
+                  class="d-flex flex-column card-link text-decoration-none align-items-center"
+                  ><img
+                    src="public/images/menu.svg"
+                    alt="Edit icon"
+                    width="24"
+                    height="24"
+                    id="writeReviewBtn"
+                  />Edit Gem</a
+                >
+              </li>
             </ul>
           </div>
         `);
@@ -115,6 +129,33 @@ async function showGems(map) {
       .setLngLat([doc.location.lng, doc.location.lat])
       .setPopup(popup)
       .addTo(map);
+
+    // Creates a new id that calls the saveGemDocumentIDAndRedirect function
+    document.addEventListener('click', (reviewBtn) => {
+      const writeReviewBtn = document.getElementById('writeReviewBtn');
+      if (reviewBtn.target.matches('#writeReviewBtn')) {
+        writeReviewBtn.addEventListener('click', saveGemDocumentIDAndRedirect);
+      }
+    });
+
+    function saveGemDocumentIDAndRedirect() {
+      const gemID = doc.id
+
+      if (!gemID) {
+        console.warn("No gem ID detected.");
+        return;
+      } else {
+        console.log("Gem ID acquired!")
+
+        // Save the hike ID locally;  provide the key, and the value
+        localStorage.setItem('gemDocID', gemID);
+
+        // Redirect to the review page
+        window.location.href = 'editGem.html';
+
+      }
+    }
+
   });
 }
 
