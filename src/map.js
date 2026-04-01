@@ -1,5 +1,6 @@
 import { db } from "./firebaseConfig.js";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, addDoc } from "firebase/firestore";
+import { documentId } from "firebase/firestore/lite";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 
@@ -96,7 +97,7 @@ async function showGems(map) {
               <li>
                 <a
                   href="#"
-                  class="d-flex flex-column card-link text-decoration-none align-items-center"
+                  class="favorite-btn d-flex flex-column card-link text-decoration-none align-items-center"
                   ><img
                     src="public/images/favorite.svg"
                     alt="Heart icon"
@@ -132,10 +133,13 @@ async function showGems(map) {
           window.location.href = `reviews.html?restaurant=${encodeURIComponent(doc.name)}`;
         });
       }
-      if (editPost) {
-        editPost.addEventListener("click", (event) => {
+      // FAVORITE BUTTON
+      const favoriteBtn = popupElement.querySelector(".favorite-btn");
+
+      if (favoriteBtn) {
+        favoriteBtn.addEventListener("click", async (event) => {
           event.preventDefault();
-          window.location.href = `editGem.html?postID=${encodeURIComponent(doc.id)}`;
+         await addToFavorites(doc);
         });
       }
     });
@@ -167,3 +171,23 @@ async function showGems(map) {
 }
 
 showMap();
+
+async function addToFavorites(doc) {
+  try {
+
+    await addDoc(collection(db, "favorites"), {
+      gemId: doc.id,
+      name: doc.name,
+      category: doc.category,
+      description: doc.description,
+      rating: doc.rating || "N/A",
+      distance: "-",
+      cost: "$$"
+    });
+
+    alert("Added to favorites!");
+
+  } catch (error) {
+    console.error("Error adding favorite:", error);
+  }
+}
