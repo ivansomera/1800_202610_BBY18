@@ -121,7 +121,6 @@ async function showGems(map) {
           </div>
         `);
 
-    
     popup.on("open", () => {
       const popupElement = popup.getElement();
       const reviewLink = popupElement.querySelector(".review-link");
@@ -134,13 +133,12 @@ async function showGems(map) {
         });
       }
       if (editPost) {
-          editPost.addEventListener("click", (event) => {
+        editPost.addEventListener("click", (event) => {
           event.preventDefault();
           window.location.href = `editGem.html?postID=${encodeURIComponent(doc.id)}`;
-      }); 
-    }
-
-})
+        });
+      }
+    });
 
     new maplibregl.Marker({ element: el })
       .setLngLat([doc.location.lng, doc.location.lat])
@@ -165,7 +163,6 @@ async function showGems(map) {
     //     window.location.href = `editGem.html?restaurant=${encodeURIComponent(doc.name)}`;
     //   }
     // }
-
   });
 }
 
