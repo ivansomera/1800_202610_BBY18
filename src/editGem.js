@@ -12,7 +12,11 @@ import {
   getDoc,
   setDoc,
   updateDoc,
-} from "firebase/firestore";
+} from "firebase/firestore";  
+
+const params = new URLSearchParams(window.location.search);
+const gemID = params.get("postID")
+console.log(gemID);
 
 //------------------------------------------------------------
 // Add event listener to the "Edit Post" button
@@ -21,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#form").addEventListener("submit", (e) => {
     e.preventDefault();
 
-    var gemID = localStorage.getItem('gemDocID');
+
 
     const [longitude, latitude] = selectedLngLat;
     const nameEdit = document.getElementById("name").value;
@@ -30,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
     'input[name="category"]:checked',
     ).value;
 
-    editPost(gemID, nameEdit, descEdit, categoryEdit, longitude, latitude);
+    editPost(nameEdit, descEdit, categoryEdit, longitude, latitude);
 
 
     const msg = document.getElementById("successMsg");
@@ -47,7 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
 // when the "Edit Post" button is clicked.
 // The map selected location is global variable.
 //-------------------------------------------------------------
-async function editPost(gemID, name, description, category, longitude, latitude) {
+async function editPost(name, description, category, longitude, latitude) {
   const user = auth.currentUser;
   if (!user) {
     console.log("Error, no user signed in");

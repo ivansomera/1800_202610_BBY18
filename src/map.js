@@ -106,17 +106,15 @@ async function showGems(map) {
                   />Favorite</a
                 >
               </li>
-              <li id="reviewBtn">
+              <li>
                 <a
                   href="#"
-                  id="reviewBtn"
-                  class="d-flex flex-column card-link text-decoration-none align-items-center"
+                  class="edit-Btn d-flex flex-column card-link text-decoration-none align-items-center"
                   ><img
                     src="public/images/menu.svg"
                     alt="Edit icon"
                     width="24"
                     height="24"
-                    id="reviewBtn"
                   />Edit Gem</a
                 >
               </li>
@@ -124,10 +122,10 @@ async function showGems(map) {
           </div>
         `);
 
-
     popup.on("open", () => {
       const popupElement = popup.getElement();
       const reviewLink = popupElement.querySelector(".review-link");
+      const editPost = popupElement.querySelector(".edit-Btn");
 
       if (reviewLink) {
         reviewLink.addEventListener("click", (event) => {
@@ -151,26 +149,24 @@ async function showGems(map) {
       .setPopup(popup)
       .addTo(map);
 
-    document.addEventListener('click', (reviewBtn) => {
-      const writeReviewBtn = document.getElementById('reviewBtn');
-      if (reviewBtn.target.matches('#reviewBtn')) {
-        writeReviewBtn.addEventListener('click', saveGemDocumentIDAndRedirect);
-      }
-    });
+    // document.addEventListener('click', (reviewBtn) => {
+    //   const writeReviewBtn = document.getElementById('reviewBtn');
+    //   if (reviewBtn.target.matches('#reviewBtn')) {
+    //     writeReviewBtn.addEventListener('click', saveGemDocumentIDAndRedirect);
+    //   }
+    // });
 
-    function saveGemDocumentIDAndRedirect() {
-      const gemID = doc.id
+    // function saveGemDocumentIDAndRedirect() {
+    //   const gemID = encodeURIComponent(doc.name)
 
-      if (!gemID) {
-        console.warn("No gem ID detected.");
-        return;
-      } else {
-        console.log("Gem ID acquired!")
-        localStorage.setItem('gemDocID', gemID);
-        window.location.href = 'editGem.html';
-      }
-    }
-
+    //   if (!gemID) {
+    //     console.warn("No gem ID detected.");
+    //     return;
+    //   } else {
+    //     console.log("Gem ID acquired!")
+    //     window.location.href = `editGem.html?restaurant=${encodeURIComponent(doc.name)}`;
+    //   }
+    // }
   });
 }
 
