@@ -53,9 +53,14 @@ async function savePost() {
 
   const name = document.getElementById("name").value;
   const desc = document.getElementById("description").value;
-  const category = document.querySelector(
-    'input[name="category"]:checked',
-  ).value;
+  const cuisine = document.querySelector('input[name="cuisine"]:checked').value;
+  const dateFrom = document.getElementById("dateFrom").value;
+  const dateTo = document.getElementById("dateTo").value;
+  const spiceLevel =
+    document.querySelector('input[name="spiceLevel"]:checked')?.value || null;
+  const openTime = document.getElementById("openTime").value;
+  const closeTime = document.getElementById("closeTime").value;
+
   // 2️⃣ Get the lnglat from global variable that saved when we clicked map
 
   if (!selectedLngLat) {
@@ -68,8 +73,13 @@ async function savePost() {
     const docRef = await addDoc(collection(db, "gems"), {
       owner: user.uid,
       name: name,
-      category: category,
+      dateFrom: dateFrom,
+      dateTo: dateTo,
       description: desc,
+      cuisine: cuisine,
+      spiceLevel: spiceLevel,
+      openTime: openTime,
+      closeTime: closeTime,
       last_updated: serverTimestamp(),
       location: {
         lat: latitude,
@@ -78,8 +88,8 @@ async function savePost() {
     });
 
     window.location.href = "main.html";
-    console.log("1. Post document added!");
-    console.log(docRef.id);
+    // console.log("1. Post document added!");
+    // console.log(docRef.id);
 
     // Optional: savePostIDforUser(docRef.id);
   } catch (error) {
