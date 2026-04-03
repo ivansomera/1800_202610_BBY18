@@ -50,26 +50,29 @@ async function showGems(map) {
   const snapshot = await getGems();
 
   snapshot.forEach((doc) => {
-    const date = doc.last_updated.toDate().toLocaleDateString();
-
     const el = document.createElement("div");
     el.className = "marker";
-    el.style.backgroundImage = `url('/images/diamond.png')`;
+    el.style.backgroundImage = `url('/images/gem.svg')`;
     el.style.backgroundRepeat = "no-repeat";
+    el.style.filter =
+      "invert(52%) sepia(80%) saturate(600%) hue-rotate(330deg)";
     el.style.width = "30px";
     el.style.height = "30px";
     el.style.backgroundSize = "contain";
 
-    const popup = new maplibregl.Popup({ offset: 25, maxWidth: "428px" })
-      .setHTML(`
-          <div class="card-body">
-            <h5 class="card-title">${doc.name}</h5>
-            <ul class="d-flex gap-3 mb-1 p-0">              
-              <li class="card-cuisine">${doc.category}</li>     
-              <li class="text-muted">Added at ${date}</li>         
+    const popup = new maplibregl.Popup({ offset: 25 }).setHTML(`
+          <div class="card-body">            
+            <h5 class="card-title">${doc.name}</h5>        
+            <ul class="d-flex gap-3 mb-0 p-0 justify-content-between">              
+              <li class="card-cuisine"><p class="mb-0 card-subheading">${doc.cuisine}</p></li> 
+              ${doc.spiceLevel ? `<li class="mb-0 card-subheading">Spice Level: ${doc.spiceLevel}</li>` : ""}                              
+            </ul>
+            <ul class="d-flex mb-1 p-0 flex-column">              
+                <li class="mb-0">${doc.dateFrom} – ${doc.dateTo}</li>              
+                ${doc.openTime ? `<li class="mb-0">${doc.openTime} – ${doc.closeTime}</li>` : ""}              
             </ul>
             <p class="card-text">${doc.description}</p>
-            <ul class="d-flex p-0 justify-content-between w-100 list-unstyled">        
+            <ul class="d-flex p-0 gap-3 w-100 justify-content-center list-unstyled mb-0">        
               <li>
                 <a
                   href="#"
@@ -79,21 +82,10 @@ async function showGems(map) {
                     alt="Reviews icon"
                     width="24"
                     height="24"
+                    class="card-icons"
                   />Reviews</a
                 >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="d-flex flex-column card-link text-decoration-none align-items-center"
-                  ><img
-                    src="public/images/map.svg"
-                    alt="Map icon"
-                    width="24"
-                    height="24"
-                  />Location</a
-                >
-              </li>
+              </li>             
               <li>
                 <a
                   href="#"
@@ -103,6 +95,7 @@ async function showGems(map) {
                     alt="Heart icon"
                     width="24"
                     height="24"
+                    class="card-icons"
                   />Favorite</a
                 >
               </li>
@@ -111,10 +104,11 @@ async function showGems(map) {
                   href="#"
                   class="edit-Btn d-flex flex-column card-link text-decoration-none align-items-center"
                   ><img
-                    src="public/images/menu.svg"
+                    src="public/images/edit.svg"
                     alt="Edit icon"
                     width="24"
                     height="24"
+                    class="card-icons"
                   />Edit Gem</a
                 >
               </li>
@@ -139,7 +133,7 @@ async function showGems(map) {
       if (favoriteBtn) {
         favoriteBtn.addEventListener("click", async (event) => {
           event.preventDefault();
-         await addToFavorites(doc);
+          await addToFavorites(doc);
         });
       }
     });
@@ -174,7 +168,6 @@ showMap();
 
 async function addToFavorites(doc) {
   try {
-
     await addDoc(collection(db, "favorites"), {
       gemId: doc.id,
       name: doc.name,
@@ -182,11 +175,10 @@ async function addToFavorites(doc) {
       description: doc.description,
       rating: doc.rating || "N/A",
       distance: "-",
-      cost: "$$"
+      cost: "$$",
     });
 
     alert("Added to favorites!");
-
   } catch (error) {
     console.error("Error adding favorite:", error);
   }
