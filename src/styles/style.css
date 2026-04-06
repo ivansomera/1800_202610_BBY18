@@ -320,6 +320,35 @@ main {
   filter: invert(52%) sepia(80%) saturate(600%) hue-rotate(330deg);
 }
 
+#cuisine-filter {
+  overflow-x: auto;
+  white-space: nowrap;
+  width: 100%;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+#cuisine-filter::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-btn {
+  background-color: var(--secondary);
+  color: var(--primary);
+  padding: 6px 16px;
+  border: none;
+}
+
+.filter-btn.active {
+  background-color: var(--light-text);
+  color: var(--primary);
+}
+
+.filter-btn:hover,
+.filter-btn:active {
+  background-color: var(--light-text);
+}
+
 /* ==========================================
    Gem Card
 ========================================== */
