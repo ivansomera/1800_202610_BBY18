@@ -21,6 +21,8 @@ const appState = {
   userLngLat: null,
 };
 
+let markers = [];
+
 function showMap() {
   // Initialize MapLibre
   // Centered at BCIT
@@ -32,24 +34,39 @@ function showMap() {
     attributionControl: false,
   });
 
-  // Add controls (zoom, rotation, etc.) shown in top-right corner of map
-  addControls(map);
-
   map.once("load", async () => {
     showGems(map);
   });
-
-  function addControls(map) {
-    // Zoom and rotation
-    map.addControl(new maplibregl.NavigationControl(), "top-right");
-  }
 }
 
 // Display gems from database
 async function showGems(map) {
   const snapshot = await getGems();
+  appState.gems = snapshot;
+  renderMarkers(map, appState.gems);
 
-  snapshot.forEach((doc) => {
+  document.querySelectorAll(".filter-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      document
+        .querySelectorAll(".filter-btn")
+        .forEach((b) => b.classList.remove("active"));
+      e.target.classList.add("active");
+
+      const selected = e.target.dataset.cuisine;
+      const filtered =
+        selected === "all"
+          ? appState.gems
+          : appState.gems.filter((doc) => doc.cuisine === selected);
+      renderMarkers(map, filtered);
+    });
+  });
+}
+
+function renderMarkers(map, gems) {
+  markers.forEach((m) => m.remove());
+  markers = [];
+
+  gems.forEach((doc) => {
     const el = document.createElement("div");
     el.className = "marker";
     el.style.backgroundImage = `url('/images/gem.svg')`;
@@ -61,65 +78,43 @@ async function showGems(map) {
     el.style.backgroundSize = "contain";
 
     const popup = new maplibregl.Popup({ offset: 25 }).setHTML(`
-          <div class="card-body">            
-            <h5 class="card-title">${doc.name}</h5>        
-            <ul class="d-flex gap-3 mb-0 p-0 justify-content-between">              
-              <li class="card-cuisine"><p class="mb-0 card-subheading">${doc.cuisine}</p></li> 
-              ${doc.spiceLevel ? `<li class="mb-0 card-subheading">Spice Level: ${doc.spiceLevel}</li>` : ""}                              
-            </ul>
-            <ul class="d-flex mb-1 p-0 flex-column">              
-                <li class="mb-0">${doc.dateFrom} – ${doc.dateTo}</li>              
-                ${doc.openTime ? `<li class="mb-0">${doc.openTime} – ${doc.closeTime}</li>` : ""}              
-            </ul>
-            <p class="card-text">${doc.description}</p>
-            <ul class="d-flex p-0 gap-3 w-100 justify-content-center list-unstyled mb-0">        
-              <li>
-                <a
-                  href="#"
-                  class="review-link d-flex flex-column card-link text-decoration-none align-items-center"
-                  ><img
-                    src="public/images/reviews.svg"
-                    alt="Reviews icon"
-                    width="24"
-                    height="24"
-                    class="card-icons"
-                  />Reviews</a
-                >
-              </li>             
-              <li>
-                <a
-                  href="#"
-                  class="favorite-btn d-flex flex-column card-link text-decoration-none align-items-center"
-                  ><img
-                    src="public/images/favorite.svg"
-                    alt="Heart icon"
-                    width="24"
-                    height="24"
-                    class="card-icons"
-                  />Favorite</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="edit-Btn d-flex flex-column card-link text-decoration-none align-items-center"
-                  ><img
-                    src="public/images/edit.svg"
-                    alt="Edit icon"
-                    width="24"
-                    height="24"
-                    class="card-icons"
-                  />Edit Gem</a
-                >
-              </li>
-            </ul>
-          </div>
-        `);
+      <div class="card-body">            
+        <h5 class="card-title">${doc.name}</h5>        
+        <ul class="d-flex gap-3 mb-0 p-0 justify-content-between">              
+          <li class="card-cuisine"><p class="mb-0 card-subheading">${doc.cuisine}</p></li> 
+          ${doc.spiceLevel ? `<li class="mb-0 card-subheading">Spice Level: ${doc.spiceLevel}</li>` : ""}                              
+        </ul>
+        <ul class="d-flex mb-1 p-0 flex-column">              
+          <li class="mb-0">${doc.dateFrom} – ${doc.dateTo}</li>              
+          ${doc.openTime ? `<li class="mb-0">${doc.openTime} – ${doc.closeTime}</li>` : ""}              
+        </ul>
+        <p class="card-text">${doc.description}</p>
+        <ul class="d-flex p-0 gap-3 w-100 justify-content-center list-unstyled mb-0">        
+          <li>
+            <a href="#" class="review-link d-flex flex-column card-link text-decoration-none align-items-center">
+              <img src="public/images/reviews.svg" alt="Reviews icon" width="24" height="24" class="card-icons"/>
+              Reviews
+            </a>
+          </li>             
+          <li>
+            <a href="#" class="favorite-btn d-flex flex-column card-link text-decoration-none align-items-center">
+              <img src="public/images/favorite.svg" alt="Heart icon" width="24" height="24" class="card-icons"/>
+              Favorite
+            </a>
+          </li>
+          <li>
+            <a href="#" class="edit-Btn d-flex flex-column card-link text-decoration-none align-items-center">
+              <img src="public/images/edit.svg" alt="Edit icon" width="24" height="24" class="card-icons"/>
+              Edit Gem
+            </a>
+          </li>
+        </ul>
+      </div>
+    `);
 
     popup.on("open", () => {
       const popupElement = popup.getElement();
       const reviewLink = popupElement.querySelector(".review-link");
-      const editPost = popupElement.querySelector(".edit-Btn");
 
       if (reviewLink) {
         reviewLink.addEventListener("click", (event) => {
@@ -127,9 +122,8 @@ async function showGems(map) {
           window.location.href = `reviews.html?restaurant=${encodeURIComponent(doc.name)}`;
         });
       }
-      // FAVORITE BUTTON
-      const favoriteBtn = popupElement.querySelector(".favorite-btn");
 
+      const favoriteBtn = popupElement.querySelector(".favorite-btn");
       if (favoriteBtn) {
         favoriteBtn.addEventListener("click", async (event) => {
           event.preventDefault();
@@ -138,29 +132,12 @@ async function showGems(map) {
       }
     });
 
-    new maplibregl.Marker({ element: el })
+    const marker = new maplibregl.Marker({ element: el })
       .setLngLat([doc.location.lng, doc.location.lat])
       .setPopup(popup)
       .addTo(map);
 
-    // document.addEventListener('click', (reviewBtn) => {
-    //   const writeReviewBtn = document.getElementById('reviewBtn');
-    //   if (reviewBtn.target.matches('#reviewBtn')) {
-    //     writeReviewBtn.addEventListener('click', saveGemDocumentIDAndRedirect);
-    //   }
-    // });
-
-    // function saveGemDocumentIDAndRedirect() {
-    //   const gemID = encodeURIComponent(doc.name)
-
-    //   if (!gemID) {
-    //     console.warn("No gem ID detected.");
-    //     return;
-    //   } else {
-    //     console.log("Gem ID acquired!")
-    //     window.location.href = `editGem.html?restaurant=${encodeURIComponent(doc.name)}`;
-    //   }
-    // }
+    markers.push(marker);
   });
 }
 
