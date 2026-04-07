@@ -155,6 +155,7 @@ function renderMarkers(map, gems) {
       const reviewLink = popupElement.querySelector(".review-link");
       const editPost = popupElement.querySelector(".edit-Btn");
       const favoriteBtn = popupElement.querySelector(".favorite-btn");
+      const icon = popupElement.querySelector(".favorite-icon");
 
       if (reviewLink) {
         reviewLink.addEventListener("click", (event) => {
@@ -174,6 +175,23 @@ function renderMarkers(map, gems) {
         favoriteBtn.addEventListener("click", async (event) => {
           event.preventDefault();
           await addToFavorites(doc);
+      const userId = auth.currentUser?.uid;
+        if (!userId) return;
+
+      const favDocRef = firestoreDoc(db, "gems", doc.id, "favorites", userId);
+      const favSnap = await getDoc(favDocRef);
+
+      if (favSnap.exists()) {
+        icon.src = "/images/favorite-filled.png";
+
+      } else {
+        icon.src = "/images/favorite.svg";
+      }
+
+      if (favoriteBtn) {
+        favoriteBtn.addEventListener("click", async (event) => {
+          event.preventDefault();
+          await toggleFavorite(doc, icon);
         });
       }
     });
@@ -204,7 +222,7 @@ async function toggleFavorite(gem, icon) {
   if (favSnap.exists()) {
     await deleteDoc(favDocRef);
 
-    icon.src = "public/images/favorite.svg";
+    icon.src = "/images/favorite.svg";
     alert("Removed from favorites");
   } else {
     //If Not Favorite -> Add
@@ -219,6 +237,9 @@ async function toggleFavorite(gem, icon) {
 
     icon.src = "public/images/favorite-filled.png";
     alert("Added to favorites!");
+    icon.src = "/images/favorite-filled.png";
+    console.log("Added to favorites!");
+
   }
 }
 
