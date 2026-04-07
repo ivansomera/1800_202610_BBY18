@@ -1,64 +1,37 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Missions</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Missions</title>
 
-  <!-- Shared Components -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
-  <script type="module" src="/src/components/site-navbar.js"></script>
-  <script type="module" src="/src/components/site-footer.js"></script>
-</head>
+    <!-- Shared Components -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
+    />
+    <script type="module" src="/src/components/site-navbar.js"></script>
+    <script type="module" src="/src/components/site-footer.js"></script>
+  </head>
 
-<body>
+  <body>
+    <!-- Top Navbar -->
+    <site-navbar></site-navbar>
 
-  <!-- Top Navbar -->
-  <site-navbar></site-navbar>
-
-  <!-- Main Content -->
-  <div class="container py-4">
-
-    <h2 class="mb-4 fw-bold">Missions</h2>
-
-    <!-- Daily Missions -->
-    <h5 class="mb-3">Daily Missions</h5>
-
-    <div class="mission-card">
-      <p>Try 2 cuisines</p>
-      <div class="progress">
-        <div class="progress-bar" style="width: 40%"></div>
+    <!-- Main Content -->
+    <main class="container py-5">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold mb-0">Leaderboard</h2>
+        <button id="sortBtn" class="btn btn-sm btn-outline-secondary">
+          <i class="bi bi-arrow-down-up me-1"></i> Sort
+        </button>
       </div>
-    </div>
+      <ul id="leaderboard" class="list-group gap-2 d-flex flex-column">
+    </main>
 
-    <div class="mission-card">
-      <p>Complete today's target</p>
-      <div class="progress">
-        <div class="progress-bar" style="width: 50%"></div>
-      </div>
-    </div>
-
-    <!-- Main Missions -->
-    <h5 class="mt-4 mb-3">Main Missions</h5>
-
-    <div class="mission-card">
-      <p>Reach 100 points</p>
-      <div class="progress">
-        <div class="progress-bar" style="width: 30%"></div>
-      </div>
-    </div>
-
-    <div class="mission-card">
-      <p>Visit 5 restaurants</p>
-      <div class="progress">
-        <div class="progress-bar" style="width: 60%"></div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Bottom Navbar -->
-  <site-footer></site-footer>
-<script type="module" src="/src/app.js"></script>
-</body>
+    <!-- Bottom Navbar -->
+    <site-footer></site-footer>
+    <script type="module" src="/src/app.js"></script>
+    <script type="module" src="/src/leaderboard.js"></script>
+  </body>
 </html>
