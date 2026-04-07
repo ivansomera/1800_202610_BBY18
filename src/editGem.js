@@ -3,6 +3,7 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 import "./styles/style.css";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "./firebaseConfig.js";
 import {
   addDoc,
@@ -13,11 +14,77 @@ import {
   setDoc,
   updateDoc,
   deleteDoc,
-} from "firebase/firestore";  
+} from "firebase/firestore";
 
 const params = new URLSearchParams(window.location.search);
-const gemID = params.get("postID")
-console.log(gemID);
+const gemID = params.get("postID");
+
+async function populateGemInfo() {
+  const params = new URLSearchParams(window.location.search);
+  const gemID = params.get("postID");
+
+  if (gemID) {
+    document.title = "Edit Gem";
+
+    const postBtn = document.getElementById("postButton");
+    if (postBtn) {
+      postBtn.innerText = "Update Gem";
+    }
+
+    const successMsg = document.getElementById("successMsg");
+    if (successMsg) {
+      successMsg.innerText = "Gem updated successfully!";
+    }
+  }
+
+  try {
+    const gemRef = doc(db, "gems", gemID);
+    const gemSnap = await getDoc(gemRef);
+    if (gemSnap.exists()) {
+      const gemData = gemSnap.data();
+      const {
+        name = "",
+        description = "",
+        dateFrom = "",
+        dateTo = "",
+        openTime = "",
+        closeTime = "",
+        cuisine = "",
+        spiceLevel = "",
+        location = null,
+      } = gemData;
+
+      document.getElementById("name").value = name;
+      document.getElementById("description").value = description;
+      document.getElementById("dateFrom").value = dateFrom;
+      document.getElementById("dateTo").value = dateTo;
+      document.getElementById("openTime").value = openTime;
+      document.getElementById("closeTime").value = closeTime;
+
+      const cuisineRadio = document.querySelector(
+        `input[name="cuisine"][value="${cuisine}"]`,
+      );
+      if (cuisineRadio) cuisineRadio.checked = true;
+
+      const spiceRadio = document.querySelector(
+        `input[name="spiceLevel"][value="${spiceLevel}"]`,
+      );
+      if (spiceRadio) spiceRadio.checked = true;
+
+      if (location) {
+        selectedLngLat = [location.lng, location.lat];
+        selectedMarker = new maplibregl.Marker()
+          .setLngLat(selectedLngLat)
+          .addTo(pickMap);
+        pickMap.setCenter(selectedLngLat);
+      }
+    } else {
+      console.log("No such document!");
+    }
+  } catch (error) {
+    console.error("Error getting gem document:", error);
+  }
+}
 
 //------------------------------------------------------------
 // Add event listener to the "Edit Post" button
@@ -26,22 +93,31 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelector("#form").addEventListener("submit", (e) => {
     e.preventDefault();
 
-
-
     const [longitude, latitude] = selectedLngLat;
     const nameEdit = document.getElementById("name").value;
     const descEdit = document.getElementById("description").value;
-    const cuisineEdit = document.querySelector('input[name="cuisine"]:checked').value;
+    const cuisineEdit = document.querySelector(
+      'input[name="cuisine"]:checked',
+    ).value;
     const dateFromEdit = document.getElementById("dateFrom").value;
     const dateToEdit = document.getElementById("dateTo").value;
-    const spiceLevelEdit = document.querySelector('input[name="spiceLevel"]:checked')?.value || null;
+    const spiceLevelEdit =
+      document.querySelector('input[name="spiceLevel"]:checked')?.value || null;
     const openTimeEdit = document.getElementById("openTime").value;
     const closeTimeEdit = document.getElementById("closeTime").value;
 
-    editPost(nameEdit, descEdit, longitude, latitude,
-      cuisineEdit, dateFromEdit, dateToEdit, spiceLevelEdit, openTimeEdit, closeTimeEdit
-    );  
-
+    editPost(
+      nameEdit,
+      descEdit,
+      longitude,
+      latitude,
+      cuisineEdit,
+      dateFromEdit,
+      dateToEdit,
+      spiceLevelEdit,
+      openTimeEdit,
+      closeTimeEdit,
+    );
 
     const msg = document.getElementById("successMsg");
     msg.classList.remove("d-none");
@@ -54,37 +130,41 @@ document.addEventListener("DOMContentLoaded", () => {
 //------------------------------------------------------------
 // Deletes the gem.
 //-------------------------------------------------------------
-document.querySelector("#delete").addEventListener("click", (e) => {
+document.querySelector("#delete").addEventListener("click", async (e) => {
   e.preventDefault();
-
-    try {
-      const currentGem = doc(db, "gems", gemID);
-      deleteDoc(currentGem)
-
+  try {
+    const currentGem = doc(db, "gems", gemID);
+    console.log("gemID:", gemID);
+    await deleteDoc(currentGem);
+    console.log("Gem deleted!");
     window.location.href = "main.html";
-    console.log("1. Gem deleted!");
-
-    // Optional: EditPostIDforUser(docRef.id);
   } catch (error) {
     console.error("Error deleting gem:", error);
   }
-
 });
-
 
 //------------------------------------------------------------
 // This function edits the post data (description and image) to Firestore
 // when the "Edit Post" button is clicked.
 // The map selected location is global variable.
 //-------------------------------------------------------------
-async function editPost(name, description, longitude, latitude, cuisine,
-  datefrom, dateto, spicelevel, opentime, closetime) {
+async function editPost(
+  name,
+  description,
+  longitude,
+  latitude,
+  cuisine,
+  datefrom,
+  dateto,
+  spicelevel,
+  opentime,
+  closetime,
+) {
   const user = auth.currentUser;
   if (!user) {
     console.log("Error, no user signed in");
     return;
   }
-
 
   // 2️⃣ Get the lnglat from global variable that Editd when we clicked map
 
@@ -96,22 +176,22 @@ async function editPost(name, description, longitude, latitude, cuisine,
   try {
     const docRef = doc(db, "gems", gemID);
     await updateDoc(docRef, {
-        description: description,
-        last_updated: serverTimestamp(),
-        name: name,
-        cuisine: cuisine,
-        dateFrom: datefrom,
-        dateTo: dateto,
-        spiceLevel: spicelevel,
-        openTime: opentime,
-        closeTime: closetime
-    }) 
+      description: description,
+      last_updated: serverTimestamp(),
+      name: name,
+      cuisine: cuisine,
+      dateFrom: datefrom,
+      dateTo: dateto,
+      spiceLevel: spicelevel,
+      openTime: opentime,
+      closeTime: closetime,
+    });
     await updateDoc(docRef, {
-        location: {
+      location: {
         lng: longitude,
         lat: latitude,
-        }
-    }) 
+      },
+    });
 
     window.location.href = "main.html";
     console.log("1. Post document added!");
@@ -135,28 +215,6 @@ let selectedLngLat = null;
 // coordinates are stored in the global variable "selectedLngLat".
 //-------------------------------------------------------------
 function currentGemLocation() {
-
-    //------------------------------------------------------------
-    // Gets id of the specified gem from a local storage. 
-    // NEEDS MORE WORK!!!!
-    //-------------------------------------------------------------
-
-    // gemInfo(gemID);
-
-    // async function gemInfo(id) {
-    //     try {
-    //         const gemRef = doc(db, "gems", id);
-    //         const gemSnap = await getDoc(gemRef);
-    //         if (gemSnap.exists()) {
-
-    //         } else {
-    //             console.log("Gem not found!");
-    //         }
-    //     } catch (error) {
-    //         console.error("Error getting gem document:", error);
-    //     }
-    // }
-
   // Initialize the Maplibre map centered on the current gem's location with a zoom level of 10
   pickMap = new maplibregl.Map({
     container: "pickMap",
@@ -165,9 +223,6 @@ function currentGemLocation() {
     zoom: 10,
     attributionControl: false,
   });
-
-  // Add navigation controls (zoom and rotation) to the top-right corner of the map
-  pickMap.addControl(new maplibregl.NavigationControl(), "top-right");
 
   // Listen for click events on the map to allow the user to select a location
   pickMap.on("click", (e) => {
@@ -187,4 +242,15 @@ function currentGemLocation() {
   });
 }
 
+function initProfilePage() {
+  onAuthStateChanged(auth, async (user) => {
+    if (!user) {
+      window.location.href = "login.html";
+      return;
+    }
+    await populateGemInfo();
+  });
+}
+
 currentGemLocation();
+initProfilePage();

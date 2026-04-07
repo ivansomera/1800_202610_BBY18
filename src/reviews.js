@@ -39,7 +39,10 @@ async function getGemId() {
 
   try {
     // first try matching by name
-    const q = query(collection(db, "gems"), where("name", "==", restaurantName));
+    const q = query(
+      collection(db, "gems"),
+      where("name", "==", restaurantName),
+    );
     const snapshot = await getDocs(q);
 
     if (!snapshot.empty) {
@@ -48,7 +51,9 @@ async function getGemId() {
 
     // if not found by name, assume URL value might already be the gem doc id
     const allGems = await getDocs(collection(db, "gems"));
-    const foundGem = allGems.docs.find((gemDoc) => gemDoc.id === restaurantName);
+    const foundGem = allGems.docs.find(
+      (gemDoc) => gemDoc.id === restaurantName,
+    );
 
     if (foundGem) {
       return foundGem.id;
@@ -93,7 +98,6 @@ async function loadReviews() {
 
       const div = document.createElement("div");
       div.className = "review-card";
-
       div.innerHTML = `
         <h3>${data.userName || "Anonymous"}</h3>
         <p>${data.reviewText || ""}</p>
@@ -124,7 +128,9 @@ async function loadReviews() {
 
       if (deleteBtn) {
         deleteBtn.addEventListener("click", async () => {
-          const confirmDelete = confirm("Are you sure you want to delete this review?");
+          const confirmDelete = confirm(
+            "Are you sure you want to delete this review?",
+          );
 
           if (!confirmDelete) {
             return;
