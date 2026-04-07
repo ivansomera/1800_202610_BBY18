@@ -74,7 +74,7 @@ function addDeleteEvents() {
   buttons.forEach((btn) => {
     btn.addEventListener("click", async (e) => {
       e.stopPropagation();
-      const userId = btn.dataset.user;
+      const userId = btn.dataset.id;
       const gemId = btn.dataset.gem;
 
       await deleteDoc(firestoreDoc(db, "gems", gemId, "favorites", userId));
