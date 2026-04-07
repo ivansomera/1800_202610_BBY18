@@ -17,7 +17,7 @@ import {
 } from "firebase/firestore";
 
 const params = new URLSearchParams(window.location.search);
-
+const gemID = params.get("postID");
 async function populateGemInfo() {
   const params = new URLSearchParams(window.location.search);
 

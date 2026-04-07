@@ -1,26 +1,28 @@
 import { db } from "./firebaseConfig.js";
-import { collection, getDocs, deleteDoc, doc as firestoreDoc, getDoc } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  deleteDoc,
+  doc as firestoreDoc,
+  getDoc,
+} from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 const auth = getAuth();
 onAuthStateChanged(auth, (user) => {
-
   if (user) {
     loadFavorites(user.uid);
   } else {
     alert("Please login first");
-
   }
 });
 
 // Load favorites into table
 async function loadFavorites(userId) {
-  const tableBody = document.getElementById("favorites-body");
-  tableBody.innerHTML = "";
+  const list = document.getElementById("favorites-body");
+  list.innerHTML = "";
 
   const gemsSnapshot = await getDocs(collection(db, "gems"));
-
-  let index = 1;
 
   for (const gemDoc of gemsSnapshot.docs) {
     const favRef = firestoreDoc(db, "gems", gemDoc.id, "favorites", userId);
@@ -29,30 +31,25 @@ async function loadFavorites(userId) {
     if (favSnap.exists()) {
       const fav = favSnap.data();
 
-      const row = document.createElement("tr");
-      row.classList.add("table-warning");
-
-      row.innerHTML = `
-        <th scope="row">${index}</th>
-        <td class="clickable" data-id="${fav.gemId}">${fav.name || "Restaurant"}</td>
-        <td>${fav.cuisine || "$$"}</td>
-        <td>${fav.spiceLevel || "N/A"}</td>
-        <td>${fav.description || "-"}</td>
-        <td>
-          <button class="btn btn-danger btn-sm delete-btn" data-id="${userId}" data-gem="${fav.gemId}">
-            Delete
-          </button>
-        </td>
+      const item = document.createElement("li");
+      item.className =
+        "list-group-item rounded d-flex justify-content-between align-items-start";
+      item.innerHTML = `
+        <div class="clickable flex-grow-1" data-id="${fav.gemId}">
+          <h6 class="mb-1 fw-bold ">${fav.name}</h6>
+          <span class="badge me-1" style="background-color: var(--secondary);">${fav.cuisine}</span>
+          <span class="badge" style="background-color: var(--light-text);">Spice: ${fav.spiceLevel}</span>
+          <p class="text-muted small mt-2 mb-0">${fav.description}</p>
+        </div>
+        <button class="btn btn-sm btn-outline-danger ms-3 delete-btn" data-id="${userId}" data-gem="${fav.gemId}">
+          Delete
+        </button>
       `;
-
-      tableBody.appendChild(row);
-      index++;
+      list.appendChild(item);
     }
   }
-
   addClickEvents();
   addDeleteEvents();
-
 }
 
 // Click row → go to details page
@@ -62,7 +59,7 @@ function addClickEvents() {
   clickable.forEach((item) => {
     item.addEventListener("click", () => {
       const id = item.dataset.id;
-      window.location.href = `/details.html?id=${id}`;
+      window.location.href = `/main.html`;
     });
   });
 }
@@ -78,8 +75,7 @@ function addDeleteEvents() {
       const gemId = btn.dataset.gem;
 
       await deleteDoc(firestoreDoc(db, "gems", gemId, "favorites", userId));
-
-      location.reload();
+      btn.closest("li").remove();
     });
   });
 }
