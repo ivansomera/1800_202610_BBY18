@@ -12,6 +12,7 @@ import {
   getDoc,
   setDoc,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";  
 
 const params = new URLSearchParams(window.location.search);
@@ -30,11 +31,16 @@ document.addEventListener("DOMContentLoaded", () => {
     const [longitude, latitude] = selectedLngLat;
     const nameEdit = document.getElementById("name").value;
     const descEdit = document.getElementById("description").value;
-    const categoryEdit = document.querySelector(
-    'input[name="category"]:checked',
-    ).value;
+    const cuisineEdit = document.querySelector('input[name="cuisine"]:checked').value;
+    const dateFromEdit = document.getElementById("dateFrom").value;
+    const dateToEdit = document.getElementById("dateTo").value;
+    const spiceLevelEdit = document.querySelector('input[name="spiceLevel"]:checked')?.value || null;
+    const openTimeEdit = document.getElementById("openTime").value;
+    const closeTimeEdit = document.getElementById("closeTime").value;
 
-    editPost(nameEdit, descEdit, categoryEdit, longitude, latitude);
+    editPost(nameEdit, descEdit, longitude, latitude,
+      cuisineEdit, dateFromEdit, dateToEdit, spiceLevelEdit, openTimeEdit, closeTimeEdit
+    );  
 
 
     const msg = document.getElementById("successMsg");
@@ -45,13 +51,34 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+//------------------------------------------------------------
+// Deletes the gem.
+//-------------------------------------------------------------
+document.querySelector("#delete").addEventListener("click", (e) => {
+  e.preventDefault();
+
+    try {
+      const currentGem = doc(db, "gems", gemID);
+      deleteDoc(currentGem)
+
+    window.location.href = "main.html";
+    console.log("1. Gem deleted!");
+
+    // Optional: EditPostIDforUser(docRef.id);
+  } catch (error) {
+    console.error("Error deleting gem:", error);
+  }
+
+});
+
 
 //------------------------------------------------------------
 // This function edits the post data (description and image) to Firestore
 // when the "Edit Post" button is clicked.
 // The map selected location is global variable.
 //-------------------------------------------------------------
-async function editPost(name, description, category, longitude, latitude) {
+async function editPost(name, description, longitude, latitude, cuisine,
+  datefrom, dateto, spicelevel, opentime, closetime) {
   const user = auth.currentUser;
   if (!user) {
     console.log("Error, no user signed in");
@@ -71,8 +98,13 @@ async function editPost(name, description, category, longitude, latitude) {
     await updateDoc(docRef, {
         description: description,
         last_updated: serverTimestamp(),
-        category: category,
         name: name,
+        cuisine: cuisine,
+        dateFrom: datefrom,
+        dateTo: dateto,
+        spiceLevel: spicelevel,
+        openTime: opentime,
+        closeTime: closetime
     }) 
     await updateDoc(docRef, {
         location: {
@@ -81,22 +113,13 @@ async function editPost(name, description, category, longitude, latitude) {
         }
     }) 
 
-    //   owner: user.uid,
-    //   name: name,
-    //   category: category,
-    //   description: desc,
-    //   last_updated: serverTimestamp(),
-    //   location: {
-    // lat: latitude,
-    // lng: longitude,
-
     window.location.href = "main.html";
     console.log("1. Post document added!");
     console.log(docRef.id);
 
     // Optional: EditPostIDforUser(docRef.id);
   } catch (error) {
-    console.error("Error adding post:", error);
+    console.error("Error editing gem:", error);
   }
 }
 

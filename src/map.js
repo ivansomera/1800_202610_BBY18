@@ -115,6 +115,8 @@ function renderMarkers(map, gems) {
     popup.on("open", () => {
       const popupElement = popup.getElement();
       const reviewLink = popupElement.querySelector(".review-link");
+      const editPost = popupElement.querySelector(".edit-Btn");
+      const favoriteBtn = popupElement.querySelector(".favorite-btn");
 
       if (reviewLink) {
         reviewLink.addEventListener("click", (event) => {
@@ -123,7 +125,13 @@ function renderMarkers(map, gems) {
         });
       }
 
-      const favoriteBtn = popupElement.querySelector(".favorite-btn");
+      if (editPost) {
+        editPost.addEventListener("click", (event) => {
+          event.preventDefault();
+          window.location.href = `editGem.html?postID=${encodeURIComponent(doc.id)}`;
+        });
+      }
+
       if (favoriteBtn) {
         favoriteBtn.addEventListener("click", async (event) => {
           event.preventDefault();

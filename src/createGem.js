@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 import "./styles/style.css";
 import { auth, db } from "./firebaseConfig.js";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import {
   addDoc,
   collection,
@@ -12,6 +13,7 @@ import {
   getDoc,
   setDoc,
   updateDoc,
+  increment,
 } from "firebase/firestore";
 
 //------------------------------------------------------------
@@ -85,6 +87,23 @@ async function savePost() {
         lat: latitude,
         lng: longitude,
       },
+    });
+
+    // Points system
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // User is signed in
+        const uid = user.uid;
+        console.log("Current user ID:", uid);
+
+        const userRef = doc(db, "users", uid);
+        var currentPoints = 0;
+        setDoc(userRef, {
+          points: increment(5)
+        }, { merge: true } )
+
+      }
     });
 
     window.location.href = "main.html";
