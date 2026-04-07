@@ -17,25 +17,9 @@ import {
 } from "firebase/firestore";
 
 const params = new URLSearchParams(window.location.search);
-const gemID = params.get("postID");
 
 async function populateGemInfo() {
   const params = new URLSearchParams(window.location.search);
-  const gemID = params.get("postID");
-
-  if (gemID) {
-    document.title = "Edit Gem";
-
-    const postBtn = document.getElementById("postButton");
-    if (postBtn) {
-      postBtn.innerText = "Update Gem";
-    }
-
-    const successMsg = document.getElementById("successMsg");
-    if (successMsg) {
-      successMsg.innerText = "Gem updated successfully!";
-    }
-  }
 
   try {
     const gemRef = doc(db, "gems", gemID);
