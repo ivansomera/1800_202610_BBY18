@@ -1,30 +1,45 @@
 import { db } from "./firebaseConfig.js";
-import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, doc as firestoreDoc, getDoc } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
+const auth = getAuth();
+onAuthStateChanged(auth, (user) => {
+
+  if (user) {
+    loadFavorites(user.uid);
+  } else {
+    alert("Please login first");
+
+  }
+});
 
 // Load favorites into table
-function loadFavorites() {
+async function loadFavorites(userId) {
   const tableBody = document.getElementById("favorites-body");
-  const favoritesRef = collection(db, "favorites");
-
   tableBody.innerHTML = "";
 
-  getDocs(favoritesRef).then((querySnapshot) => {
-    let index = 1;
+  const gemsSnapshot = await getDocs(collection(db, "gems"));
 
-    querySnapshot.forEach((favoriteDoc) => {
-      const fav = favoriteDoc.data();
+  let index = 1;
+
+  for (const gemDoc of gemsSnapshot.docs) {
+    const favRef = firestoreDoc(db, "gems", gemDoc.id, "favorites", userId);
+    const favSnap = await getDoc(favRef);
+
+    if (favSnap.exists()) {
+      const fav = favSnap.data();
 
       const row = document.createElement("tr");
       row.classList.add("table-warning");
 
       row.innerHTML = `
         <th scope="row">${index}</th>
-        <td class="clickable" data-id="${favoriteDoc.id}">${fav.name || "Restaurant"}</td>
-        <td>${fav.cost || "$$"}</td>
-        <td>${fav.rating || "N/A"}</td>
-        <td>${fav.distance || "-"}</td>
+        <td class="clickable" data-id="${fav.gemId}">${fav.name || "Restaurant"}</td>
+        <td>${fav.cuisine || "$$"}</td>
+        <td>${fav.spiceLevel || "N/A"}</td>
+        <td>${fav.description || "-"}</td>
         <td>
-          <button class="btn btn-danger btn-sm delete-btn" data-id="${favoriteDoc.id}">
+          <button class="btn btn-danger btn-sm delete-btn" data-id="${userId}" data-gem="${fav.gemId}">
             Delete
           </button>
         </td>
@@ -32,11 +47,12 @@ function loadFavorites() {
 
       tableBody.appendChild(row);
       index++;
-    });
+    }
+  }
 
-    addClickEvents();
-    addDeleteEvents();
-  });
+  addClickEvents();
+  addDeleteEvents();
+
 }
 
 // Click row → go to details page
@@ -56,19 +72,14 @@ function addDeleteEvents() {
   const buttons = document.querySelectorAll(".delete-btn");
 
   buttons.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
+    btn.addEventListener("click", async (e) => {
       e.stopPropagation();
-      const id = btn.dataset.id;
-      deleteFavorite(id);
+      const userId = btn.dataset.user;
+      const gemId = btn.dataset.gem;
+
+      await deleteDoc(firestoreDoc(db, "gems", gemId, "favorites", userId));
+
+      location.reload();
     });
   });
 }
-
-function deleteFavorite(id) {
-  deleteDoc(doc(db, "favorites", id)).then(() => {
-    loadFavorites();
-  });
-}
-
-// Load when page opens
-loadFavorites();
