@@ -1,6 +1,15 @@
 import { db } from "./firebaseConfig.js";
-import { collection, getDocs, deleteDoc, query, where, doc as firestoreDoc, getDoc, setDoc } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import {
+  collection,
+  getDocs,
+  deleteDoc,
+  query,
+  where,
+  doc as firestoreDoc,
+  getDoc,
+  setDoc,
+} from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { documentId } from "firebase/firestore/lite";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
@@ -16,8 +25,6 @@ async function getGems() {
     ...doc.data(),
   }));
 }
-
-console.log("URL:", window.location.search);
 
 const appState = {
   gems: [],
@@ -70,7 +77,9 @@ function renderMarkers(map, gems) {
   markers = [];
 
   gems.forEach((doc) => {
+    const isOwner = auth.currentUser?.uid === doc.owner;
     const el = document.createElement("div");
+
     el.className = "marker";
     el.style.backgroundImage = `url('/images/gem.svg')`;
     el.style.backgroundRepeat = "no-repeat";
@@ -119,19 +128,24 @@ function renderMarkers(map, gems) {
                   />Favorite</a
                 >
               </li>
-              <li>
-                <a
-                  href="#"
-                  class="edit-Btn d-flex flex-column card-link text-decoration-none align-items-center"
-                  ><img
-                    src="public/images/edit.svg"
-                    alt="Edit icon"
-                    width="24"
-                    height="24"
-                    class="card-icons"
-                  />Edit Gem</a
-                >
-              </li>
+              ${
+                isOwner
+                  ? `
+                <li>
+                    <a
+                    href="#"
+                    class="edit-Btn d-flex flex-column card-link text-decoration-none align-items-center"
+                    ><img
+                        src="public/images/edit.svg"
+                        alt="Edit icon"
+                        width="24"
+                        height="24"
+                        class="card-icons"
+                    />Edit Gem</a
+                    >
+                </li>`
+                  : ""
+              }
             </ul>
           </div>
         `);
@@ -162,20 +176,6 @@ function renderMarkers(map, gems) {
           await addToFavorites(doc);
         });
       }
-      const favDocRef = firestoreDoc(db, "gems", doc.id, "favorites", userId);
-      const favSnap = await getDoc(favDocRef);
-
-      if (favSnap.exists()) {
-        icon.src = "/images/favorite-filled.png";
-
-      } else {
-        icon.src = "/images/favorite.svg";
-      }
-
-      favoriteBtn.addEventListener("click", async (event) => {
-        event.preventDefault();
-        await toggleFavorite(doc, icon);
-      });
     });
 
     const marker = new maplibregl.Marker({ element: el })
@@ -188,7 +188,6 @@ function renderMarkers(map, gems) {
 }
 
 async function toggleFavorite(gem, icon) {
-
   const userId = auth.currentUser?.uid;
 
   if (!userId) {
@@ -203,15 +202,11 @@ async function toggleFavorite(gem, icon) {
 
   //If alraedy Favorite - remove it
   if (favSnap.exists()) {
-
     await deleteDoc(favDocRef);
 
     icon.src = "public/images/favorite.svg";
     alert("Removed from favorites");
-  }
-
-  else {
-
+  } else {
     //If Not Favorite -> Add
     await setDoc(favDocRef, {
       userId: userId,
@@ -224,7 +219,6 @@ async function toggleFavorite(gem, icon) {
 
     icon.src = "public/images/favorite-filled.png";
     alert("Added to favorites!");
-
   }
 }
 

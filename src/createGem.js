@@ -99,10 +99,13 @@ async function savePost() {
 
         const userRef = doc(db, "users", uid);
         var currentPoints = 0;
-        setDoc(userRef, {
-          points: increment(5)
-        }, { merge: true } )
-
+        setDoc(
+          userRef,
+          {
+            points: increment(5),
+          },
+          { merge: true },
+        );
       }
     });
 
@@ -136,9 +139,6 @@ function initPickMap() {
     zoom: 10,
     attributionControl: false,
   });
-
-  // Add navigation controls (zoom and rotation) to the top-right corner of the map
-  pickMap.addControl(new maplibregl.NavigationControl(), "top-right");
 
   // Listen for click events on the map to allow the user to select a location
   pickMap.on("click", (e) => {
