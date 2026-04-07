@@ -141,6 +141,7 @@ function renderMarkers(map, gems) {
       const reviewLink = popupElement.querySelector(".review-link");
       const editPost = popupElement.querySelector(".edit-Btn");
       const favoriteBtn = popupElement.querySelector(".favorite-btn");
+      const icon = popupElement.querySelector(".favorite-icon");
 
       if (reviewLink) {
         reviewLink.addEventListener("click", (event) => {
@@ -156,12 +157,9 @@ function renderMarkers(map, gems) {
         });
       }
 
-      if (favoriteBtn) {
-        favoriteBtn.addEventListener("click", async (event) => {
-          event.preventDefault();
-          await addToFavorites(doc);
-        });
-      }
+      const userId = auth.currentUser?.uid;
+        if (!userId) return;
+
       const favDocRef = firestoreDoc(db, "gems", doc.id, "favorites", userId);
       const favSnap = await getDoc(favDocRef);
 
@@ -172,10 +170,12 @@ function renderMarkers(map, gems) {
         icon.src = "/images/favorite.svg";
       }
 
-      favoriteBtn.addEventListener("click", async (event) => {
-        event.preventDefault();
-        await toggleFavorite(doc, icon);
-      });
+      if (favoriteBtn) {
+        favoriteBtn.addEventListener("click", async (event) => {
+          event.preventDefault();
+          await toggleFavorite(doc, icon);
+        });
+      }
     });
 
     const marker = new maplibregl.Marker({ element: el })
@@ -206,7 +206,7 @@ async function toggleFavorite(gem, icon) {
 
     await deleteDoc(favDocRef);
 
-    icon.src = "public/images/favorite.svg";
+    icon.src = "/images/favorite.svg";
     alert("Removed from favorites");
   }
 
@@ -222,8 +222,8 @@ async function toggleFavorite(gem, icon) {
       description: gem.description || "",
     });
 
-    icon.src = "public/images/favorite-filled.png";
-    alert("Added to favorites!");
+    icon.src = "/images/favorite-filled.png";
+    console.log("Added to favorites!");
 
   }
 }
