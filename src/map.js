@@ -1,8 +1,11 @@
 import { db } from "./firebaseConfig.js";
-import { collection, getDocs, addDoc } from "firebase/firestore";
+import { collection, getDocs, deleteDoc, query, where, doc as firestoreDoc, getDoc, setDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 import { documentId } from "firebase/firestore/lite";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
+
+const auth = getAuth();
 
 // Get gems from Firestore
 async function getGems() {
@@ -95,7 +98,7 @@ async function showGems(map) {
                     alt="Heart icon"
                     width="24"
                     height="24"
-                    class="card-icons"
+                    class="card-icons favorite-icon"
                   />Favorite</a
                 >
               </li>
@@ -116,7 +119,7 @@ async function showGems(map) {
           </div>
         `);
 
-    popup.on("open", () => {
+    popup.on("open", async () => {
       const popupElement = popup.getElement();
       const reviewLink = popupElement.querySelector(".review-link");
       const editPost = popupElement.querySelector(".edit-Btn");
@@ -129,13 +132,28 @@ async function showGems(map) {
       }
       // FAVORITE BUTTON
       const favoriteBtn = popupElement.querySelector(".favorite-btn");
+      const icon = favoriteBtn.querySelector("img");
 
-      if (favoriteBtn) {
-        favoriteBtn.addEventListener("click", async (event) => {
-          event.preventDefault();
-          await addToFavorites(doc);
-        });
+      const userId = auth.currentUser?.uid;
+
+      if (!userId) {
+        alert("User not logged in");
+        return;
       }
+      const favDocRef = firestoreDoc(db, "gems", doc.id, "favorites", userId);
+      const favSnap = await getDoc(favDocRef);
+
+      if (favSnap.exists()) {
+        icon.src = "/images/favorite-filled.png";
+
+      } else {
+        icon.src = "/images/favorite.svg";
+      }
+
+      favoriteBtn.addEventListener("click", async (event) => {
+        event.preventDefault();
+        await toggleFavorite(doc, icon);
+      });
     });
 
     new maplibregl.Marker({ element: el })
@@ -164,22 +182,45 @@ async function showGems(map) {
   });
 }
 
-showMap();
+async function toggleFavorite(gem, icon) {
 
-async function addToFavorites(doc) {
-  try {
-    await addDoc(collection(db, "favorites"), {
-      gemId: doc.id,
-      name: doc.name,
-      category: doc.category,
-      description: doc.description,
-      rating: doc.rating || "N/A",
-      distance: "-",
-      cost: "$$",
+  const userId = auth.currentUser?.uid;
+
+  if (!userId) {
+    alert("User not logged in");
+    return;
+  }
+
+  const favDocRef = firestoreDoc(db, "gems", gem.id, "favorites", userId);
+
+  //check if gem already exists
+  const favSnap = await getDoc(favDocRef);
+
+  //If alraedy Favorite - remove it
+  if (favSnap.exists()) {
+
+    await deleteDoc(favDocRef);
+
+    icon.src = "public/images/favorite.svg";
+    alert("Removed from favorites");
+  }
+
+  else {
+
+    //If Not Favorite -> Add
+    await setDoc(favDocRef, {
+      userId: userId,
+      gemId: gem.id,
+      name: gem.name,
+      cuisine: gem.cuisine || "Not specified",
+      spiceLevel: gem.spiceLevel || "Not specified",
+      description: gem.description || "",
     });
 
+    icon.src = "public/images/favorite-filled.png";
     alert("Added to favorites!");
-  } catch (error) {
-    console.error("Error adding favorite:", error);
+
   }
 }
+
+showMap();
