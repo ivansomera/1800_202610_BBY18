@@ -270,6 +270,7 @@ main {
   border: 1px solid #ccc;
   border-radius: 10px;
   font-size: 16px;
+  box-sizing: border-box;
 }
 
 .reviews-page .add-review textarea {
@@ -285,10 +286,11 @@ main {
   border-radius: 10px;
   font-size: 16px;
   cursor: pointer;
+  transition: 0.2s ease;
 }
 
 .reviews-page .add-review button:hover {
-  opacity: 0.9;
+  background: #0ea5d6;
 }
 
 .reviews-page #reviews-container {
@@ -306,10 +308,46 @@ main {
 
 .reviews-page .review-card h3 {
   margin-bottom: 8px;
+  color: #222;
 }
 
 .reviews-page .review-card p {
   margin-bottom: 8px;
+  color: #333;
+}
+
+.reviews-page .review-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.reviews-page .edit-review-btn,
+.reviews-page .delete-review-btn {
+  border: none;
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.reviews-page .edit-review-btn {
+  background: #12b5ea;
+  color: white;
+}
+
+.reviews-page .edit-review-btn:hover {
+  background: #0ea5d6;
+}
+
+.reviews-page .delete-review-btn {
+  background: #dc3545;
+  color: white;
+}
+
+.reviews-page .delete-review-btn:hover {
+  background: #bb2d3b;
 }
 
 /* ==========================================
