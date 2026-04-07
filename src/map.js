@@ -24,6 +24,8 @@ const appState = {
   userLngLat: null,
 };
 
+let markers = [];
+
 function showMap() {
   // Initialize MapLibre
   // Centered at BCIT
@@ -35,24 +37,39 @@ function showMap() {
     attributionControl: false,
   });
 
-  // Add controls (zoom, rotation, etc.) shown in top-right corner of map
-  addControls(map);
-
   map.once("load", async () => {
     showGems(map);
   });
-
-  function addControls(map) {
-    // Zoom and rotation
-    map.addControl(new maplibregl.NavigationControl(), "top-right");
-  }
 }
 
 // Display gems from database
 async function showGems(map) {
   const snapshot = await getGems();
+  appState.gems = snapshot;
+  renderMarkers(map, appState.gems);
 
-  snapshot.forEach((doc) => {
+  document.querySelectorAll(".filter-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      document
+        .querySelectorAll(".filter-btn")
+        .forEach((b) => b.classList.remove("active"));
+      e.target.classList.add("active");
+
+      const selected = e.target.dataset.cuisine;
+      const filtered =
+        selected === "all"
+          ? appState.gems
+          : appState.gems.filter((doc) => doc.cuisine === selected);
+      renderMarkers(map, filtered);
+    });
+  });
+}
+
+function renderMarkers(map, gems) {
+  markers.forEach((m) => m.remove());
+  markers = [];
+
+  gems.forEach((doc) => {
     const el = document.createElement("div");
     el.className = "marker";
     el.style.backgroundImage = `url('/images/gem.svg')`;
@@ -122,7 +139,6 @@ async function showGems(map) {
     popup.on("open", async () => {
       const popupElement = popup.getElement();
       const reviewLink = popupElement.querySelector(".review-link");
-      const editPost = popupElement.querySelector(".edit-Btn");
 
       if (reviewLink) {
         reviewLink.addEventListener("click", (event) => {
@@ -156,29 +172,12 @@ async function showGems(map) {
       });
     });
 
-    new maplibregl.Marker({ element: el })
+    const marker = new maplibregl.Marker({ element: el })
       .setLngLat([doc.location.lng, doc.location.lat])
       .setPopup(popup)
       .addTo(map);
 
-    // document.addEventListener('click', (reviewBtn) => {
-    //   const writeReviewBtn = document.getElementById('reviewBtn');
-    //   if (reviewBtn.target.matches('#reviewBtn')) {
-    //     writeReviewBtn.addEventListener('click', saveGemDocumentIDAndRedirect);
-    //   }
-    // });
-
-    // function saveGemDocumentIDAndRedirect() {
-    //   const gemID = encodeURIComponent(doc.name)
-
-    //   if (!gemID) {
-    //     console.warn("No gem ID detected.");
-    //     return;
-    //   } else {
-    //     console.log("Gem ID acquired!")
-    //     window.location.href = `editGem.html?restaurant=${encodeURIComponent(doc.name)}`;
-    //   }
-    // }
+    markers.push(marker);
   });
 }
 
