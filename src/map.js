@@ -139,6 +139,8 @@ function renderMarkers(map, gems) {
     popup.on("open", async () => {
       const popupElement = popup.getElement();
       const reviewLink = popupElement.querySelector(".review-link");
+      const editPost = popupElement.querySelector(".edit-Btn");
+      const favoriteBtn = popupElement.querySelector(".favorite-btn");
 
       if (reviewLink) {
         reviewLink.addEventListener("click", (event) => {
@@ -146,15 +148,19 @@ function renderMarkers(map, gems) {
           window.location.href = `reviews.html?restaurant=${encodeURIComponent(doc.name)}`;
         });
       }
-      // FAVORITE BUTTON
-      const favoriteBtn = popupElement.querySelector(".favorite-btn");
-      const icon = favoriteBtn.querySelector("img");
 
-      const userId = auth.currentUser?.uid;
+      if (editPost) {
+        editPost.addEventListener("click", (event) => {
+          event.preventDefault();
+          window.location.href = `editGem.html?postID=${encodeURIComponent(doc.id)}`;
+        });
+      }
 
-      if (!userId) {
-        alert("User not logged in");
-        return;
+      if (favoriteBtn) {
+        favoriteBtn.addEventListener("click", async (event) => {
+          event.preventDefault();
+          await addToFavorites(doc);
+        });
       }
       const favDocRef = firestoreDoc(db, "gems", doc.id, "favorites", userId);
       const favSnap = await getDoc(favDocRef);

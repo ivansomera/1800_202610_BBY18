@@ -28,103 +28,54 @@
     <main class="container-fluid bg-light text-dark p-5">
       <div>
         <div class="container mt-4">
-          <h1>Edit gem</h1>
-
+          <div class="d-flex justify-content-end"><button type="button" id="delete" class="btn btn-danger">Delete</button></div>        
+          <h1>Editing your gem</h1>
           <form id="form">
             <!-- Name -->
             <div class="mb-3">
-              <label class="form-label fw-semibold">Name
+              <label class="form-label fw-semibold">Name</label>
               <input
                 type="text"
                 id="name"
                 class="form-control"
-                placeholder="Enter a hidden gem"
+                placeholder="Enter your food truck's name"
                 required
               />
             </div>
 
-            <!-- Category -->
-            <div class="mb-3">
-              <label class="form-label fw-semibold">Category</label>
-              <div class="d-flex flex-wrap gap-2">
-                <input
-                  type="radio"
-                  class="btn-check"
-                  name="category"
-                  id="nearVenue"
-                  value="Near a Venue"
-                  required
-                />
-                <label
-                  class="btn btn-outline-secondary rounded-pill"
-                  for="nearVenue"
-                  >🚇 Near a Venue</label
+            <!-- Date range -->
+            <div class="mb-3 d-flex flex-wrap gap-3">
+              <div>
+                <label for="dateFrom" class="form-label fw-semibold"
+                  >Start Date</label
                 >
+                <input type="date" id="dateFrom" name="dateFrom" required />
+              </div>
+              <div>
+                <label for="dateTo" class="form-label fw-semibold"
+                  >End Date</label
+                >
+                <input type="date" id="dateTo" name="dateTo" required />
+              </div>
+            </div>
 
+            <!-- Hours of Operation -->
+            <div class="mb-3 d-flex flex-wrap gap-3">
+              <label class="form-label fw-semibold">Hours of Operation</label>
+              <div class="d-flex align-items-center gap-2">
                 <input
-                  type="radio"
-                  class="btn-check"
-                  name="category"
-                  id="quickBite"
-                  value="Quick Bite"
+                  type="time"
+                  id="openTime"
+                  name="openTime"
+                  class="form-control"
                 />
-                <label
-                  class="btn btn-outline-secondary rounded-pill"
-                  for="quickBite"
-                  >⚡ Quick Bite</label
-                >
-
+                <span>to</span>
                 <input
-                  type="radio"
-                  class="btn-check"
-                  name="category"
-                  id="watchParty"
-                  value="Watch Party"
+                  type="time"
+                  id="closeTime"
+                  name="closeTime"
+                  class="form-control"
                 />
-                <label
-                  class="btn btn-outline-secondary rounded-pill"
-                  for="watchParty"
-                  >🍺 Watch Party</label
-                >
-
-                <input
-                  type="radio"
-                  class="btn-check"
-                  name="category"
-                  id="cheapEats"
-                  value="Cheap Eats"
-                />
-                <label
-                  class="btn btn-outline-secondary rounded-pill"
-                  for="cheapEats"
-                  >💸 Cheap Eats</label
-                >
-
-                <input
-                  type="radio"
-                  class="btn-check"
-                  name="category"
-                  id="momAndPop"
-                  value="Mom & Pop"
-                />
-                <label
-                  class="btn btn-outline-secondary rounded-pill"
-                  for="momAndPop"
-                  >🏠 Mom & Pop</label
-                >
-
-                <input
-                  type="radio"
-                  class="btn-check"
-                  name="category"
-                  id="onlyInVancouver"
-                  value="Only in Vancouver"
-                />
-                <label
-                  class="btn btn-outline-secondary rounded-pill"
-                  for="onlyInVancouver"
-                  >🌏 Only in Vancouver</label
-                >
               </div>
             </div>
 
@@ -138,6 +89,135 @@
                 placeholder="What makes this place special?"
                 required
               ></textarea>
+            </div>
+
+            <!-- Cuisine -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Cuisine</label>
+              <div class="d-flex flex-wrap gap-2">
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="cuisine"
+                  id="asian"
+                  value="Asian"
+                  required
+                />
+                <label
+                  class="btn btn-outline-secondary rounded-pill"
+                  for="asian"
+                  >Asian</label
+                >
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="cuisine"
+                  id="mexican"
+                  value="Mexican"
+                  required
+                />
+                <label
+                  class="btn btn-outline-secondary rounded-pill"
+                  for="mexican"
+                  >Mexican</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="cuisine"
+                  id="indian"
+                  value="Indian"
+                  required
+                />
+                <label
+                  class="btn btn-outline-secondary rounded-pill"
+                  for="indian"
+                  >Indian</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="cuisine"
+                  id="mediterranean"
+                  value="Mediterranean"
+                  required
+                />
+                <label
+                  class="btn btn-outline-secondary rounded-pill"
+                  for="mediterranean"
+                  >Mediterranean</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="cuisine"
+                  id="american"
+                  value="American"
+                  required
+                />
+                <label
+                  class="btn btn-outline-secondary rounded-pill"
+                  for="american"
+                  >American</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="cuisine"
+                  id="desserts"
+                  value="Desserts"
+                  required
+                />
+                <label
+                  class="btn btn-outline-secondary rounded-pill"
+                  for="desserts"
+                  >Desserts</label
+                >
+              </div>
+            </div>
+
+            <!-- Spice Level -->
+            <div class="mb-3">
+              <label class="form-label fw-semibold">Spice Level</label>
+              <div class="d-flex flex-wrap gap-2">
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="spiceLevel"
+                  id="mild"
+                  value="Mild"
+                />
+                <label class="btn btn-outline-secondary rounded-pill" for="mild"
+                  >Mild</label
+                >
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="spiceLevel"
+                  id="medium"
+                  value="Medium"
+                />
+                <label
+                  class="btn btn-outline-secondary rounded-pill"
+                  for="medium"
+                  >Medium</label
+                >
+
+                <input
+                  type="radio"
+                  class="btn-check"
+                  name="spiceLevel"
+                  id="hot"
+                  value="Hot"
+                />
+                <label class="btn btn-outline-secondary rounded-pill" for="hot"
+                  >Hot</label
+                >
+              </div>
             </div>
 
             <!-- Map -->
@@ -185,12 +265,12 @@
                 type="submit"
                 class="btn btn-info text-light"
               >
-                Edit gem
+                Add gem
               </button>
             </div>
           </form>
           <div id="successMsg" class="alert alert-success mt-3 d-none">
-            Gem edited successfully!
+            Gem added successfully!
           </div>
         </div>
       </div>
