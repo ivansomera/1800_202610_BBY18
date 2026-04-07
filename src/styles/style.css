@@ -412,3 +412,20 @@ main {
   line-height: 60px;
   background-color: #f5f5f5;
 }
+
+.toast-notification {
+  position: fixed;
+  bottom: 80px;
+  right: 20px;
+  background: var(--secondary);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: opacity 0.3s ease;
+  z-index: 1000;
+}
+
+.fade-out {
+  opacity: 0;
+}

@@ -16,6 +16,19 @@ import "maplibre-gl/dist/maplibre-gl.css";
 
 const auth = getAuth();
 
+function showToast(message) {
+  const toast = document.createElement("div");
+  toast.classList.add("toast-notification");
+  toast.textContent = message;
+  document.body.appendChild(toast);
+
+  // Remove after 3 seconds
+  setTimeout(() => {
+    toast.classList.add("fade-out");
+    toast.addEventListener("transitionend", () => toast.remove());
+  }, 1000);
+}
+
 // Get gems from Firestore
 async function getGems() {
   const snapshot = await getDocs(collection(db, "gems"));
@@ -171,19 +184,14 @@ function renderMarkers(map, gems) {
         });
       }
 
-      if (favoriteBtn) {
-        favoriteBtn.addEventListener("click", async (event) => {
-          event.preventDefault();
-          await addToFavorites(doc);
       const userId = auth.currentUser?.uid;
-        if (!userId) return;
+      if (!userId) return;
 
       const favDocRef = firestoreDoc(db, "gems", doc.id, "favorites", userId);
       const favSnap = await getDoc(favDocRef);
 
       if (favSnap.exists()) {
         icon.src = "/images/favorite-filled.png";
-
       } else {
         icon.src = "/images/favorite.svg";
       }
@@ -221,9 +229,8 @@ async function toggleFavorite(gem, icon) {
   //If alraedy Favorite - remove it
   if (favSnap.exists()) {
     await deleteDoc(favDocRef);
-
     icon.src = "/images/favorite.svg";
-    alert("Removed from favorites");
+    showToast("Removed from favorites");
   } else {
     //If Not Favorite -> Add
     await setDoc(favDocRef, {
@@ -236,10 +243,8 @@ async function toggleFavorite(gem, icon) {
     });
 
     icon.src = "public/images/favorite-filled.png";
-    alert("Added to favorites!");
+    showToast("Added to favorites!");
     icon.src = "/images/favorite-filled.png";
-    console.log("Added to favorites!");
-
   }
 }
 
