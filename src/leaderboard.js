@@ -5,7 +5,7 @@ let ascending = false;
 
 async function renderLeaderboard() {
   const order = ascending ? "asc" : "desc";
-  const q = query(collection(db, "users"), orderBy("points", order));
+  const q = query(collection(db, "users"), orderBy("points", "desc"));
   const snapshot = await getDocs(q);
 
   const list = document.querySelector("#leaderboard");
@@ -18,10 +18,5 @@ async function renderLeaderboard() {
     list.appendChild(item);
   });
 }
-
-document.querySelector("#sortBtn").addEventListener("click", () => {
-  ascending = !ascending;
-  renderLeaderboard();
-});
 
 renderLeaderboard();
