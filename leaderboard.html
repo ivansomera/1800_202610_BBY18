@@ -1,172 +1,64 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <title>Leaderboard</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Missions</title>
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <!-- Web Components for shared navbar and footer layout -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css"
-    <script type="module" src="/src/components/site-navbar.js"></script>
-    <script type="module" src="/src/components/site-footer.js"></script>
-
+  <!-- Shared Components -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+  <script type="module" src="/src/components/site-navbar.js"></script>
+  <script type="module" src="/src/components/site-footer.js"></script>
 </head>
 
 <body>
 
-    <site-navbar></site-navbar>
+  <!-- Top Navbar -->
+  <site-navbar></site-navbar>
 
-    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
+  <!-- Main Content -->
+  <div class="container py-4">
 
-            <a class="navbar-brand" href="#">Restaurant App</a>
+    <h2 class="mb-4 fw-bold">Missions</h2>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <!-- Daily Missions -->
+    <h5 class="mb-3">Daily Missions</h5>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
+    <div class="mission-card">
+      <p>Try 2 cuisines</p>
+      <div class="progress">
+        <div class="progress-bar" style="width: 40%"></div>
+      </div>
+    </div>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="index.html">Home</a>
-                    </li>
+    <div class="mission-card">
+      <p>Complete today's target</p>
+      <div class="progress">
+        <div class="progress-bar" style="width: 50%"></div>
+      </div>
+    </div>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="leaderboard.html">Profile</a>
-                    </li>
+    <!-- Main Missions -->
+    <h5 class="mt-4 mb-3">Main Missions</h5>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.html">About Us</a>
-                    </li>
+    <div class="mission-card">
+      <p>Reach 100 points</p>
+      <div class="progress">
+        <div class="progress-bar" style="width: 30%"></div>
+      </div>
+    </div>
 
-                </ul>
-            </div>
+    <div class="mission-card">
+      <p>Visit 5 restaurants</p>
+      <div class="progress">
+        <div class="progress-bar" style="width: 60%"></div>
+      </div>
+    </div>
 
-        </div>
-    </nav> -->
-    <div class="container mt-5">
+  </div>
 
-        <h1 class="text-center mb-4">Leaderboard</h1>
-
-        <!-- Future Database Content Will Go Here -->
-          <div id="leaderboard-container">
-
-                <!-- Player 1 -->
-                <div class="d-flex justify-content-between align-items-center bg-light p-3 mb-3 rounded">
-
-                    <div class="d-flex align-items-center">
-                        <h5 class="me-3">1.</h5>
-
-                        <i class="bi bi-person-circle fs-3 me-3"></i>
-
-                        <div>
-                            <div>James</div>
-                            <small class="text-muted">Level 1</small>
-                        </div>
-                    </div>
-
-                    <div>
-                        <i class="bi bi-award"></i> 1200pts
-                    </div>
-
-                </div>
-
-
-                <!-- Player 2 -->
-                <div class="d-flex justify-content-between align-items-center bg-light p-3 mb-3 rounded">
-
-                    <div class="d-flex align-items-center">
-                        <h5 class="me-3">2.</h5>
-
-                        <i class="bi bi-person-circle fs-3 me-3"></i>
-
-                        <div>
-                            <div>Ryan</div>
-                            <small class="text-muted">Level 2</small>
-                        </div>
-                    </div>
-
-                    <div>
-                        <i class="bi bi-award"></i> 1170pts
-                    </div>
-
-                </div>
-
-
-                <!-- Player 3 -->
-                <div class="d-flex justify-content-between align-items-center bg-light p-3 mb-3 rounded">
-
-                    <div class="d-flex align-items-center">
-                        <h5 class="me-3">3.</h5>
-
-                        <i class="bi bi-person-circle fs-3 me-3"></i>
-
-                        <div>
-                            <div>Chris</div>
-                            <small class="text-muted">Level 3</small>
-                        </div>
-                    </div>
-
-                    <div>
-                        <i class="bi bi-award"></i> 1050pts
-                    </div>
-
-                </div>
-
-
-                <!-- Player 4 -->
-                <div class="d-flex justify-content-between align-items-center bg-light p-3 mb-3 rounded">
-
-                    <div class="d-flex align-items-center">
-                        <h5 class="me-3">4.</h5>
-
-                        <i class="bi bi-person-circle fs-3 me-3"></i>
-
-                        <div>
-                            <div>Jordan</div>
-                            <small class="text-muted">Level 4</small>
-                        </div>
-                    </div>
-
-                    <div>
-                        <i class="bi bi-award"></i> 921pts
-                    </div>
-
-                </div>
-
-
-                <!-- Player 5 -->
-                <div class="d-flex justify-content-between align-items-center bg-light p-3 mb-3 rounded">
-
-                    <div class="d-flex align-items-center">
-                        <h5 class="me-3">5.</h5>
-
-                        <i class="bi bi-person-circle fs-3 me-3"></i>
-
-                        <div>
-                            <div>Becca</div>
-                            <small class="text-muted">Level 4</small>
-                        </div>
-                    </div>
-
-                    <div>
-                        <i class="bi bi-award"></i> 910pts
-                    </div>
-
-                </div>
-
-         
-
-    <site-footer></site-footer>
-    
-    <script type="module" src="/src/app.js"></script>
-    <script type="module" src="/src/leaderboard.js"></script>
-   
-
+  <!-- Bottom Navbar -->
+  <site-footer></site-footer>
+<script type="module" src="/src/app.js"></script>
 </body>
-
 </html>
