@@ -145,24 +145,6 @@ async function showGems(map) {
       .setPopup(popup)
       .addTo(map);
 
-    // document.addEventListener('click', (reviewBtn) => {
-    //   const writeReviewBtn = document.getElementById('reviewBtn');
-    //   if (reviewBtn.target.matches('#reviewBtn')) {
-    //     writeReviewBtn.addEventListener('click', saveGemDocumentIDAndRedirect);
-    //   }
-    // });
-
-    // function saveGemDocumentIDAndRedirect() {
-    //   const gemID = encodeURIComponent(doc.name)
-
-    //   if (!gemID) {
-    //     console.warn("No gem ID detected.");
-    //     return;
-    //   } else {
-    //     console.log("Gem ID acquired!")
-    //     window.location.href = `editGem.html?restaurant=${encodeURIComponent(doc.name)}`;
-    //   }
-    // }
   });
 }
 
