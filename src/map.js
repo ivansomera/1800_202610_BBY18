@@ -120,7 +120,7 @@ function renderMarkers(map, gems) {
                   href="#"
                   class="review-link d-flex flex-column card-link text-decoration-none align-items-center"
                   ><img
-                    src="public/images/reviews.svg"
+                    src="/images/reviews.svg"
                     alt="Reviews icon"
                     width="24"
                     height="24"
@@ -133,7 +133,7 @@ function renderMarkers(map, gems) {
                   href="#"
                   class="favorite-btn d-flex flex-column card-link text-decoration-none align-items-center"
                   ><img
-                    src="public/images/favorite.svg"
+                    src="/images/favorite.svg"
                     alt="Heart icon"
                     width="24"
                     height="24"
@@ -149,7 +149,7 @@ function renderMarkers(map, gems) {
                     href="#"
                     class="edit-Btn d-flex flex-column card-link text-decoration-none align-items-center"
                     ><img
-                        src="public/images/edit.svg"
+                        src="/images/edit.svg"
                         alt="Edit icon"
                         width="24"
                         height="24"

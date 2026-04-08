@@ -12,31 +12,23 @@ import "/src/styles/style.css";
 
 import { onAuthReady } from "./authentication.js";
 
-function showName() {
-  const nameElement = document.getElementById("name-goes-here");
-
+function checkLogin() {
   onAuthReady((user) => {
     if (!user) {
-      if (window.location.pathname.endsWith('main.html')) {
-        location.href = 'index.html';
+      if (window.location.pathname.endsWith("/main.html")) {
+        location.href = "index.html";
       }
       return;
     } else {
-      if (window.location.pathname.endsWith('index.html') || window.location.pathname.endsWith('/')) {
-        location.href = 'main.html';
+      if (
+        window.location.pathname.endsWith("index.html") ||
+        window.location.pathname.endsWith("/")
+      ) {
+        location.href = "main.html";
       }
       return;
     }
-
-    const name = user.displayName || user.email;
-    if (nameElement) nameElement.textContent = `${name}!`;
   });
 }
 
-showName();
-
-// This is an example function. Replace it with your own logic.
-function sayHello() {
-  // TODO: implement your logic here
-}
-document.addEventListener("DOMContentLoaded", sayHello);
+checkLogin();
