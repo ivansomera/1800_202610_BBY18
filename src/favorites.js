@@ -24,7 +24,7 @@ async function loadFavorites(userId) {
 
   const gemsSnapshot = await getDocs(collection(db, "gems"));
 
-  for (const gemDoc of gemsSnapshot.docs) {
+  const promises =  gemsSnapshot.docs.map(async (gemDoc) => {
     const favRef = firestoreDoc(db, "gems", gemDoc.id, "favorites", userId);
     const favSnap = await getDoc(favRef);
 
@@ -47,10 +47,14 @@ async function loadFavorites(userId) {
       `;
       list.appendChild(item);
     }
-  }
+  });
+
+  await Promise.all(promises);
+
   addClickEvents();
   addDeleteEvents();
 }
+
 
 // Click row → go to details page
 function addClickEvents() {
@@ -59,7 +63,9 @@ function addClickEvents() {
   clickable.forEach((item) => {
     item.addEventListener("click", () => {
       const id = item.dataset.id;
-      window.location.href = `/main.html`;
+
+      //go to map with gemId
+      window.location.href = `/main.html?gemId=${id}`;
     });
   });
 }

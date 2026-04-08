@@ -14,6 +14,9 @@ import { documentId } from "firebase/firestore/lite";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 
+const params = new URLSearchParams(window.location.search);
+const selectedGemId = params.get("gemId");
+
 const auth = getAuth();
 
 function showToast(message) {
@@ -141,9 +144,8 @@ function renderMarkers(map, gems) {
                   />Favorite</a
                 >
               </li>
-              ${
-                isOwner
-                  ? `
+              ${isOwner
+        ? `
                 <li>
                     <a
                     href="#"
@@ -157,8 +159,8 @@ function renderMarkers(map, gems) {
                     />Edit Gem</a
                     >
                 </li>`
-                  : ""
-              }
+        : ""
+      }
             </ul>
           </div>
         `);
@@ -210,6 +212,16 @@ function renderMarkers(map, gems) {
       .addTo(map);
 
     markers.push(marker);
+
+    //zoom the gem in the map
+    if (selectedGemId === doc.id) {
+      map.flyTo({
+        center: [doc.location.lng, doc.location.lat],
+        zoom: 12,
+      });
+
+      marker.togglePopup();
+    }
   });
 }
 
@@ -226,7 +238,7 @@ async function toggleFavorite(gem, icon) {
   //check if gem already exists
   const favSnap = await getDoc(favDocRef);
 
-  //If alraedy Favorite - remove it
+  //If already Favorite - remove it
   if (favSnap.exists()) {
     await deleteDoc(favDocRef);
     icon.src = "/images/favorite.svg";
