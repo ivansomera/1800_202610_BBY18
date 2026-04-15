@@ -1,7 +1,5 @@
 // src/authentication.js
 // ------------------------------------------------------------
-// Part of the COMP1800 Projects 1 Course (BCIT).
-// Starter code provided for students to use and adapt.
 // Contains reusable Firebase Authentication functions
 // (login, signup, logout, and auth state checks).
 // -------------------------------------------------------------

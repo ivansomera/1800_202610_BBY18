@@ -1,26 +1,27 @@
-# Restolocal
+# Foogem
 
 ## Overview
 
-Restolocal is a client-side JavaScript web application to help visitors coming to the World Cup to show them locally-recommended restaurants by creating a gamified and memorable experience.
+Foogem is a mobile-first web application that helps World Cup visitors discover locally-recommended food trucks in Vancouver, with gems added by locals.
 
 ---
 
 ## Features
 
-- Browse a list of curated local restaurants
-- View a leaderboard/missions
-- View a personalized list of favorite restaurants
-- Responsive design for desktop and mobile
-
----
+- Mobile-first responsive design
+- Browse a list of locally-recommended food trucks
+- Edit, delete, and review food trucks
+- Filter through different types cuisines to narrow down search
+- View points in leaderboard
+- User authentication (user signup/login)
 
 ## Technologies Used
 
 - **Frontend**: HTML, CSS, JavaScript
 - **Build Tool**: [Vite](https://vitejs.dev/)
-- **Backend**: Firebase for hosting
+- **Backend (Authentication and hosting)**: Firebase
 - **Database**: Firestore
+- **Map**: MapLibre
 
 ---
 
@@ -32,13 +33,7 @@ To run the application locally:
 2.  **Install dependencies** by running `npm install` in the project root directory.
 3.  **Start the development server** by running the command: `npm run dev`.
 4.  Open your browser and visit the local address shown in your terminal (usually `http://localhost:5173` or similar).
-5.  Update .env file with keys in firebase and maptiler
-
-Once the application is running:
-
-1.  Browse the list of restaurants displayed on the main page.
-2.  Click the heart icon (or similar) to mark a trail as a favorite.
-3.  View your favorite hikes in the favorites section.
+5.  Update .env file with keys in firebase and maplibre
 
 ---
 
@@ -52,12 +47,30 @@ Once the application is running:
 │   ├── authentication.js
 │   ├── firebaseConfig.js
 │   ├── loginSignup.js
+│   ├── createGem.js
+│   ├── editGem.js
+│   ├── favorites.js
+│   ├── leaderboard.js
+│   ├── menu.js
+│   └──  reviews.js
+├── components/
+│   ├── site-footer.js
+│   └── site-navbar.js
 ├── styles/
 │   └── style.css
 ├── public/
 │   └── images
 ├── index.html
+├── createGem.html
+├── editGem.html
+├── favorites.html
+├── leaderboard.html
+├── login.html
+├── main.html
+├── map.html
+├── reviews.html
 ├── package.json
+├── vite.config.js
 ├── README.md
 ```
 
@@ -72,9 +85,7 @@ Once the application is running:
 
 ## Acknowledgments
 
-- Trail data and images are for demonstration purposes only.
-- Code snippets were adapted from resources such as [Stack Overflow](https://stackoverflow.com/) and [MDN Web Docs](https://developer.mozilla.org/).
-- Icons sourced from [FontAwesome](https://fontawesome.com/) and images from [Unsplash](https://unsplash.com/).
+- Icons sourced from [FlatIcon](https://www.flaticon.com/).
 
 ---
 
@@ -82,14 +93,12 @@ Once the application is running:
 
 ### Limitations
 
-- Limited trail details (e.g., no live trail conditions).
-- Accessibility features can be further improved.
+- Gamified features weren't fully implemented.
+- Time contraint
 
 ### Future Work
 
-- Implement map view and trailhead directions.
-- Add filtering and sorting options (e.g., by difficulty, distance).
-- Create a dark mode for better usability in low-light conditions.
+- More comprehensive points system.
 
 ---
 

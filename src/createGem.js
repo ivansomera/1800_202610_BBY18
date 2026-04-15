@@ -10,9 +10,7 @@ import {
   collection,
   serverTimestamp,
   doc,
-  getDoc,
   setDoc,
-  updateDoc,
   increment,
 } from "firebase/firestore";
 

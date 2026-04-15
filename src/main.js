@@ -1,10 +1,4 @@
-import { auth, db } from "./firebaseConfig.js";
-import {
-  collection,
-  getDocs,
-  addDoc,
-  serverTimestamp,
-} from "firebase/firestore";
+import { auth } from "./firebaseConfig.js";
 import { signOut } from "firebase/auth";
 
 import "bootstrap/dist/css/bootstrap.min.css";

@@ -3,14 +3,11 @@ import {
   collection,
   getDocs,
   deleteDoc,
-  query,
-  where,
   doc as firestoreDoc,
   getDoc,
   setDoc,
 } from "firebase/firestore";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { documentId } from "firebase/firestore/lite";
+import { getAuth } from "firebase/auth";
 import maplibregl from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 
@@ -144,8 +141,9 @@ function renderMarkers(map, gems) {
                   />Favorite</a
                 >
               </li>
-              ${isOwner
-        ? `
+              ${
+                isOwner
+                  ? `
                 <li>
                     <a
                     href="#"
@@ -159,8 +157,8 @@ function renderMarkers(map, gems) {
                     />Edit Gem</a
                     >
                 </li>`
-        : ""
-      }
+                  : ""
+              }
             </ul>
           </div>
         `);

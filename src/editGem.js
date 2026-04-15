@@ -3,15 +3,12 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap";
 import "./styles/style.css";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth, db } from "./firebaseConfig.js";
 import {
-  addDoc,
-  collection,
   serverTimestamp,
   doc,
   getDoc,
-  setDoc,
   updateDoc,
   deleteDoc,
 } from "firebase/firestore";
