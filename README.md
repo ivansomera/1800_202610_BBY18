@@ -94,7 +94,6 @@ To run the application locally:
 ### Limitations
 
 - Gamified features weren't fully implemented.
-- Time contraint
 
 ### Future Work
 
