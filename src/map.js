@@ -68,6 +68,7 @@ async function showGems(map) {
   appState.gems = snapshot;
   renderMarkers(map, appState.gems);
 
+  // Filtering
   document.querySelectorAll(".filter-btn").forEach((btn) => {
     btn.addEventListener("click", (e) => {
       document

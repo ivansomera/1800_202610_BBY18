@@ -3,6 +3,7 @@ import { collection, query, orderBy, getDocs } from "firebase/firestore";
 
 let ascending = false;
 
+// Fetch users ordered by points and render the leaderboard table
 async function renderLeaderboard() {
   let i = 1;
   const order = ascending ? "asc" : "desc";
@@ -20,19 +21,18 @@ async function renderLeaderboard() {
     const rowPoints = document.createElement("td");
 
     if (i % 2 != 0) {
-      row.classList.add('table-warning');
+      row.classList.add("table-warning");
     } else {
-      row.classList.add('table-info');
+      row.classList.add("table-info");
     }
 
     rowHeadStart.textContent = `${i}`;
     rowBodyStart.textContent = `${name}`;
-    rowPoints.textContent = `${points}`
+    rowPoints.textContent = `${points}`;
     row.append(rowHeadStart, rowBodyStart, rowPoints);
     list.append(row);
     i++;
-  
   });
-} 
+}
 
 renderLeaderboard();

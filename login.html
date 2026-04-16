@@ -2,26 +2,17 @@
 <html lang="en">
   <head>
     <title>Login</title>
-    <meta name="comp1800 template" content="My 1800 App" />
 
-    <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- Web Components for shared navbar and footer layout -->
     <script type="module" src="/src/components/site-navbar.js"></script>
     <script type="module" src="/src/components/site-footer.js"></script>
   </head>
 
   <body>
-    <!------------------------------>
-    <!-- Your HTML Layout go here -->
-    <!------------------------------>
-
-    <!-- our own navbar goes here -->
     <site-navbar></site-navbar>
 
-    <!-- Main content goes here -->
     <div class="container py-5" style="max-width: 420px">
       <!-- Alerts -->
       <div id="authAlert" class="alert alert-danger d-none" role="alert"></div>
@@ -101,11 +92,8 @@
       </div>
     </div>
 
-    <!---------------------------------------------->
-    <!-- Your own JavaScript scripts go here      -->
-    <!---------------------------------------------->
     <script type="module" src="/src/app.js"></script>
-    <!-- Firebase and authentication related scripts -->
+
     <script type="module" src="/src/firebaseConfig.js"></script>
     <script type="module" src="/src/authentication.js"></script>
     <script type="module" src="/src/loginSignup.js"></script>

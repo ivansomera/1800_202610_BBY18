@@ -13,11 +13,10 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 
+// Fetch existing gem data by ID and pre-fill the edit form
 const params = new URLSearchParams(window.location.search);
 const gemID = params.get("postID");
 async function populateGemInfo() {
-  const params = new URLSearchParams(window.location.search);
-
   try {
     const gemRef = doc(db, "gems", gemID);
     const gemSnap = await getDoc(gemRef);
